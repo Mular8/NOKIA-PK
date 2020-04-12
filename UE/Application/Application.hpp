@@ -26,6 +26,7 @@ public:
 
     // IBtsEventsHandler interface
     void handleSib(common::BtsId btsId) override;
+    void handleDisconnected() override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
 

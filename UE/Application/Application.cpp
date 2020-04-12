@@ -25,6 +25,10 @@ void Application::handleTimeout()
 {
     context.state->handleTimeout();
 }
+void Application::handleDisconnected()
+{
+    context.state->handleDisconnected();
+}
 
 void Application::handleSib(common::BtsId btsId)
 {
