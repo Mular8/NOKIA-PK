@@ -1,7 +1,6 @@
 #include "Database/SmsDatabase.hpp"
 #include "Sms/Sms.hpp"
 #include <memory>
-#include <QDebug>
 namespace ue
 {
 

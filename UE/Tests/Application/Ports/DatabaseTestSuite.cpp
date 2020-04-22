@@ -1,9 +1,8 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <QDebug>
-
 #include "Database/SmsDatabase.hpp"
-
+#include "Sms/Sms.hpp"
+#include "Database/SmsDatabase.hpp"
 namespace ue
 {
 using namespace ::testing;
@@ -21,7 +20,7 @@ TEST_F(DatabaseTestSuite, CreateTest)
 {
     int temp=db.size();
     Sms newsms;
-    db.create(newsms);
+    db.insert(newsms);
     EXPECT_EQ(temp+1,db.size());
     EXPECT_EQ(db.get(db.size()-1)->messageId,db.size()-1);
 }
@@ -29,14 +28,14 @@ TEST_F(DatabaseTestSuite, RemoveTest)
 {
     int temp=db.size();
     Sms newsms;
-    db.create(newsms);
+    db.insert(newsms);
     db.remove(0);
     EXPECT_EQ(temp,db.size());
 }
 TEST_F(DatabaseTestSuite, RemoveAllTest)
 {
     Sms newsms;
-    db.create(newsms);
+    db.insert(newsms);
     db.removeAll();
     EXPECT_EQ(0,db.size());
 }
