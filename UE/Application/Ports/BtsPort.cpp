@@ -4,6 +4,9 @@
 
 namespace ue
 {
+void BtsPort::sendSms(common::PhoneNumber recipent, std::string message)
+{
+}
 
 BtsPort::BtsPort(common::ILogger &logger, common::ITransport &transport, common::PhoneNumber phoneNumber)
     : logger(logger, "[BTS-PORT]"),

@@ -7,6 +7,8 @@ namespace ue
 UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber)
     : logger(logger, "[USER-PORT]"),
       gui(gui),
+      currentView(CurrentView::Status),
+      currentMode(nullptr),
       phoneNumber(phoneNumber)
 {}
 
@@ -23,7 +25,9 @@ void UserPort::stop()
 
 void UserPort::showNotConnected()
 {
+
     gui.showNotConnected();
+
 }
 
 void UserPort::showConnecting()

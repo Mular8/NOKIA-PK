@@ -13,7 +13,8 @@ public:
 
     // ITimerEventsHandler interface
     void handleTimeout() override;
-
+    //IUserEventsHandler interface
+    void handleSendSms(common::PhoneNumber recipent, std::string message) override;
     // IBtsEventsHandler interface
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
