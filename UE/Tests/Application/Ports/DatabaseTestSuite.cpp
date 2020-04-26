@@ -40,33 +40,38 @@ TEST_F(DatabaseTestSuite, NewDatabaseEmpty)
 TEST_F(DatabaseTestSuite, CreateTest)
 {
     int temp=db.size();
-    Sms newsms;
-    db.insert(newsms);
+    db.insert(mock.createSms());
     EXPECT_EQ(temp+1,db.size());
     EXPECT_EQ(db.get(db.size()-1)->messageId,db.size()-1);
 }
 TEST_F(DatabaseTestSuite, RemoveTest)
 {
     int temp=db.size();
-    Sms newsms;
-    db.insert(newsms);
+    db.insert(mock.createSms());
     db.remove(0);
     EXPECT_EQ(temp,db.size());
 }
 TEST_F(DatabaseTestSuite, RemoveAllTest)
 {
-    Sms newsms;
-    db.insert(newsms);
+    for(int i=0;i<10;i++)
+        db.insert(mock.createSms());
     db.removeAll();
     EXPECT_EQ(0,db.size());
+}
+TEST_F(DatabaseTestSuite, SizeTest)
+{
+    db.removeAll();
+    for(int i=0;i<10;i++)
+        db.insert(mock.createSms());
+    EXPECT_EQ(10,db.size());
 }
 TEST_F(DatabaseTestSuite, UpdateTest)
 {
     db.removeAll();
-    Sms newSms;
+    Sms newSms=mock.createSms();
     newSms.message="Old Message";
     db.insert(newSms);
-    Sms updatingSms;
+    Sms updatingSms=mock.createSms();
     updatingSms.message="New Message";
     db.update(updatingSms,0);
     EXPECT_EQ(db.get(0)->message,"New Message");

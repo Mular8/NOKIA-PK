@@ -7,10 +7,10 @@ Sms::Sms()
 {
 }
 
-Sms::Sms(PhoneNumber from, PhoneNumber to) : Sms()
+Sms::Sms(PhoneNumber from, std::string text) : Sms()
 {
     this->from=from;
-    this->to=to;
+    this->message=text;
 }
 
 std::string Sms::decryption()

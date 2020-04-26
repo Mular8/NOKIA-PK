@@ -11,7 +11,7 @@ class Sms : public ISms
 {
 public:
     Sms();
-    Sms(PhoneNumber from, PhoneNumber to);
+    Sms(PhoneNumber from, std::string text);
     long messageId;
     std::string message;
     PhoneNumber from;
@@ -20,7 +20,8 @@ public:
     std::string decryption() override;
     std::string encryption() override;
     int encrypion_code=3;
-    bool accepted=false;
+    bool read;
+    bool sent;
 };
 
 }
