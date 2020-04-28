@@ -9,6 +9,7 @@ class SmsDatabase : public ISmsDatabase
 {
     std::vector<Sms> obiekty;
 public:
+    SmsDatabase();
     Sms* get(int id) override;
     std::vector<Sms> getAll() override;
     void update(Sms sms, int id) override;

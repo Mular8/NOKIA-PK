@@ -6,6 +6,7 @@
 #include "Mocks/IBtsPortMock.hpp"
 #include "Mocks/IUserPortMock.hpp"
 #include "Mocks/ITimerPortMock.hpp"
+#include "Mocks/ISmsDatabaseMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include <memory>
 
@@ -21,13 +22,14 @@ protected:
     StrictMock<IBtsPortMock> btsPortMock;
     StrictMock<IUserPortMock> userPortMock;
     StrictMock<ITimerPortMock> timerPortMock;
-
-
+    StrictMock<ISmsDatabaseMock> dbMock;
     Application objectUnderTest{PHONE_NUMBER,
                                 loggerMock,
                                 btsPortMock,
                                 userPortMock,
-                                timerPortMock};
+                                timerPortMock,
+                               dbMock
+                               };
 };
 
 struct ApplicationNotConnectedTestSuite : ApplicationTestSuite
@@ -36,5 +38,8 @@ struct ApplicationNotConnectedTestSuite : ApplicationTestSuite
 TEST_F(ApplicationNotConnectedTestSuite, todo)
 {
 }
+struct ApplicationConnectedTestSuite : ApplicationTestSuite
+{
 
+};
 }

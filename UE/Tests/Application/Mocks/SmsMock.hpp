@@ -35,7 +35,6 @@ public:
         sms.to=PhoneNumber{static_cast<Value>(temp)};
         sms.from=PhoneNumber{static_cast<Value>(temp2)};
         sms.message=randomMessage();
-        sms.accepted=false;
         sms.encrypion_code=3;
         return sms;
     }

@@ -1,12 +1,13 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "Sms/Sms.hpp"
+#include "../Sms/Sms.hpp"
 namespace ue
 {
 class ISmsDatabase
 {
 public:
+    ~ISmsDatabase() = default;
     virtual Sms* get(int id)=0;
     virtual std::vector<Sms> getAll()=0;
     virtual void update(Sms sms, int id)=0;

@@ -3,8 +3,7 @@
 #include <memory>
 namespace ue
 {
-
-
+SmsDatabase::SmsDatabase(){}
 Sms* SmsDatabase::get(int id)
 {
     return &obiekty.at(id);
