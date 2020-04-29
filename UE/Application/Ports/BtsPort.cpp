@@ -52,8 +52,8 @@ void BtsPort::handleMessage(BinaryMessage msg)
         case common::MessageId::Sms:
         {
             std::string message = reader.readRemainingText();
-            logger.logDebug("BtsPort, SmsRecieved from: ", from);
-            logger.logDebug("BtsPort, SmsRecieved msg: ", message);
+            logger.logDebug("BtsPort, SmsRecieived from: ", from);
+            logger.logDebug("BtsPort, SmsRecieived message: ", message);
             handler->handleSmsReceived(from, message);
             break;
         }
