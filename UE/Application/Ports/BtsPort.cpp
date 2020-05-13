@@ -58,7 +58,7 @@ void BtsPort::handleMessage(BinaryMessage msg)
             break;
         }
         default:
-            logger.logError("unknow message: ", msgId, ", from: ", from);
+            logger.logError("unknown message: ", msgId, ", from: ", from);
 
         }
 

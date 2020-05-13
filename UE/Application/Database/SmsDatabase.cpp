@@ -6,7 +6,15 @@ namespace ue
 SmsDatabase::SmsDatabase(){}
 Sms* SmsDatabase::get(int id)
 {
-    return &obiekty.at(id);
+    try
+    {
+        return &obiekty.at(id);
+    }
+    catch (const std::out_of_range& oor)
+    {
+        return &obiekty.at(obiekty.size()-1);
+    }
+
 }
 std::vector<Sms> SmsDatabase::getAll()
 {
