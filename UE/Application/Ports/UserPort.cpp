@@ -4,43 +4,96 @@
 namespace ue
 {
 
-UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber)
-    : logger(logger, "[USER-PORT]"),
+UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber) : logger(logger, "[USER-PORT]"),
       gui(gui),
-      currentView(CurrentView::Status),
       currentMode(nullptr),
-      phoneNumber(phoneNumber)
+      phoneNumber(phoneNumber),
+      currentView(CurrentView::Status)
+
 {}
 
 void UserPort::start(IUserEventsHandler &handler)
 {
     this->handler = &handler;
     gui.setTitle("Nokia " + to_string(phoneNumber));
+    gui.setRejectCallback([this]() { handleRejectClicked(); });
+    gui.setAcceptCallback([this]() { handleAcceptClicked(); });
+
 }
 
 void UserPort::stop()
 {
     handler = nullptr;
+    gui.setRejectCallback(nullptr);
+    gui.setAcceptCallback(nullptr);
+
+}
+void UserPort::handleRejectClicked()
+{
+    auto current = getCurrentMode();
+    switch(current.first) {
+        case CurrentView::NewSms: {
+            auto menu = (IUeGui::ISmsComposeMode*)current.second;
+            menu->clearSmsText();
+            showConnected();
+        }
+        default: {
+            break;
+        }
+    }
+}
+
+void UserPort::handleHomeClicked()
+{
+
 }
 
 void UserPort::showNotConnected()
 {
-
+    currentView = CurrentView::Status;
     gui.showNotConnected();
-
 }
 
 void UserPort::showConnecting()
 {
+    currentView = CurrentView::Status;
     gui.showConnecting();
 }
 
+void UserPort::handleAcceptClicked()
+{
+    auto current = getCurrentMode();
+    switch(current.first) {
+    case CurrentView::NewSms: {
+        auto menu = (IUeGui::ISmsComposeMode*)current.second;
+        auto recipient = menu->getPhoneNumber();
+        auto text = menu->getSmsText();
+        handler->handleSendSms(recipient, text);
+        menu->clearSmsText();
+        showConnected();
+        break;
+    }
+        case CurrentView::HomeMenu: {
+            auto currentItem = ((IUeGui::IListViewMode*)current.second)->getCurrentItemIndex();
+            if(currentItem.first && currentItem.second == UserPort::NewSmsItem) {
+                setCurrentMode(CurrentView::NewSms, &gui.setSmsComposeMode());
+            }
+            break;
+        }
+        default: {
+            break;
+         }
+    }
+}
+
+
 void UserPort::showConnected()
 {
-    IUeGui::IListViewMode& menu = gui.setListViewMode();
-    menu.clearSelectionList();
-    menu.addSelectionListItem("Compose SMS", "");
-    menu.addSelectionListItem("View SMS", "");
+    auto menu = (IUeGui::IListViewMode*) &gui.setListViewMode();
+    menu->clearSelectionList();
+    menu->addSelectionListItem("View SMS", "List all new messages");
+    menu->addSelectionListItem("Compose SMS", "New SMS");
+    setCurrentMode(CurrentView::HomeMenu, menu);
 }
 
 }

@@ -40,9 +40,9 @@ void Application::handleAttachReject()
 {
     context.state->handleAttachReject();
 }
-void Application::handleSendSms(common::PhoneNumber recipent, std::string message)
+void Application::handleSendSms(common::PhoneNumber recipient, std::string message)
 {
-    context.state->handleSendSms(recipent, message);
+    context.state->handleSendSms(recipient, message);
 }
 
 }

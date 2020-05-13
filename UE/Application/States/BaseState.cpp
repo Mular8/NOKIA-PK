@@ -3,10 +3,6 @@
 namespace ue
 {
 
-void BaseState::handleSendSms(common::PhoneNumber recipent, std::string message)
-{
-    logger.logError("Uexpected: handleSendSms");
-}
 
 BaseState::BaseState(Context &context, const std::string &name)
     : context(context),
@@ -29,7 +25,10 @@ void BaseState::handleSib(common::BtsId btsId)
 {
     logger.logError("Uexpected: handleSib: ", btsId);
 }
-
+void BaseState::handleSendSms(common::PhoneNumber recipient, std::string message)
+{
+    logger.logError("Uexpected: handleSendSms");
+}
 void BaseState::handleAttachAccept()
 {
     logger.logError("Uexpected: handleTimeout");

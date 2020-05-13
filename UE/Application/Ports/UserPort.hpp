@@ -4,10 +4,18 @@
 #include "Logger/PrefixedLogger.hpp"
 #include "IUeGui.hpp"
 #include "Messages/PhoneNumber.hpp"
+#include "UeGui/IListViewMode.hpp"
+#include "UeGui/ISmsComposeMode.hpp"
+
 
 namespace ue
 {
-
+enum class CurrentView {
+    Status,
+    HomeMenu,
+    NewSms,
+    SmsList
+};
 class UserPort : public IUserPort
 {
 public:
@@ -35,11 +43,6 @@ private:
     CurrentView currentView;
 
 };
-enum class CurrentView {
-    Status,
-    HomeMenu,
-    NewSms,
-    SmsList
-};
+
 
 }

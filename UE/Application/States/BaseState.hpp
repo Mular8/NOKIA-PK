@@ -14,14 +14,14 @@ public:
     // ITimerEventsHandler interface
     void handleTimeout() override;
     //IUserEventsHandler interface
-    void handleSendSms(common::PhoneNumber recipent, std::string message) override;
+    void handleSendSms(common::PhoneNumber recipient, std::string message) override;
     // IBtsEventsHandler interface
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
-
-private:
+protected:
     Context& context;
+private:
     common::PrefixedLogger logger;
 };
 

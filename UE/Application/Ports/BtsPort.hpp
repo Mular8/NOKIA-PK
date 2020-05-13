@@ -12,7 +12,7 @@ class BtsPort : public IBtsPort
 {
 public:
     BtsPort(common::ILogger& logger, common::ITransport& transport, common::PhoneNumber phoneNumber);
-    void sendSms(common::PhoneNumber recipent, std::string message) override;
+    void sendSms(common::PhoneNumber recipient, std::string message) override;
     void start(IBtsEventsHandler& handler);
     void stop();
 

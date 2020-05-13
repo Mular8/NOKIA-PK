@@ -4,7 +4,7 @@
 
 namespace ue
 {
-void BtsPort::sendSms(common::PhoneNumber recipent, std::string message)
+void BtsPort::sendSms(common::PhoneNumber recipient, std::string message)
 {
 }
 
