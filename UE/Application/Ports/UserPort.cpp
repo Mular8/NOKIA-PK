@@ -33,12 +33,11 @@ void UserPort::showConnecting()
 
 void UserPort::showConnected()
 {
-    IUeGui::IListViewMode& menu = gui.setListViewMode();
-    menu.clearSelectionList();
-    menu.addSelectionListItem("Compose SMS", "");
-    menu.addSelectionListItem("View SMS", "");
+    gui.showConnected();
 }
-void UserPort::showReceivedSmsNotification()
+
+
+void UserPort::showReceivedSms()
 {
     gui.showNewSms();
 }

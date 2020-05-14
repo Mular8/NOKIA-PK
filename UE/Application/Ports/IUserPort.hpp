@@ -1,5 +1,5 @@
 #pragma once
-
+#include "IUeGui.hpp"
 
 namespace ue
 {
@@ -18,7 +18,7 @@ public:
     virtual void showNotConnected() = 0;
     virtual void showConnecting() = 0;
     virtual void showConnected() = 0;
-    virtual void showReceivedSmsNotification() = 0;
+    virtual void showReceivedSms() = 0;
 };
 
 }

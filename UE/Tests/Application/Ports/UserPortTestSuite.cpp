@@ -60,7 +60,7 @@ TEST_F(UserPortTestSuite, shallShowMenuOnConnected)
 TEST_F(UserPortTestSuite, shallShowReceivedSmsNotification)
 {
     EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
-    objectUnderTest.showReceivedSmsNotification();
+    objectUnderTest.showReceivedSms();
 }
 
 }
