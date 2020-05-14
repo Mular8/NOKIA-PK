@@ -2,7 +2,7 @@
 #include "IEventsHandler.hpp"
 #include "Logger/PrefixedLogger.hpp"
 #include "Context.hpp"
-
+#include "Messages/PhoneNumber.hpp"
 namespace ue
 {
 
@@ -20,6 +20,7 @@ public:
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
+    void handleSmsReceived(common::PhoneNumber from, std::string text) override;
 
 protected:
     Context& context;

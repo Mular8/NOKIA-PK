@@ -3,7 +3,7 @@
 #include "IEventsHandler.hpp"
 #include "Logger/ILogger.hpp"
 #include <memory>
-
+#include <Database/ISmsDatabase.hpp>
 namespace ue
 {
 
@@ -13,6 +13,7 @@ struct Context
     IBtsPort& bts;
     IUserPort& user;
     ITimerPort& timer;
+    ISmsDatabase& db;
     std::unique_ptr<IEventsHandler> state{};
 
     template <typename State, typename ...Arg>

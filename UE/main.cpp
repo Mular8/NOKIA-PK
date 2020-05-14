@@ -3,7 +3,7 @@
 #include "Ports/BtsPort.hpp"
 #include "Ports/UserPort.hpp"
 #include "Ports/TimerPort.hpp"
-
+#include "Database/SmsDatabase.hpp"
 int main(int argc, char* argv[])
 {
     using namespace ue;
@@ -18,7 +18,8 @@ int main(int argc, char* argv[])
     BtsPort bts(logger, tranport, phoneNumber);
     UserPort user(logger, gui, phoneNumber);
     TimerPort timer(logger);
-    Application app(phoneNumber, logger, bts, user, timer);
+    SmsDatabase db;
+    Application app(phoneNumber, logger, bts, user, timer, db);
     bts.start(app);
     user.start(app);
     timer.start(app);
