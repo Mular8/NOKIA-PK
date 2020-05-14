@@ -57,4 +57,10 @@ TEST_F(UserPortTestSuite, shallShowMenuOnConnected)
     objectUnderTest.showConnected();
 }
 
+TEST_F(UserPortTestSuite, shallShowReceivedSmsInformation)
+{
+    EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
+    objectUnderTest.showReceivedSms();
+}
+
 }
