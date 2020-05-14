@@ -6,6 +6,7 @@ namespace ue
 ConnectedState::ConnectedState(Context &context)
     : BaseState(context, "ConnectedState")
 {
+    context.user.showConnected();
 }
 void ConnectedState::handleSmsReceived(common::PhoneNumber from,
                                        std::string text)
