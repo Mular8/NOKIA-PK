@@ -25,7 +25,7 @@ void BaseState::handleSib(common::BtsId btsId)
 {
     logger.logError("Uexpected: handleSib: ", btsId);
 }
-void BaseState::handleSendSms(common::PhoneNumber recipient, std::string message)
+void BaseState::handleSendSms(common::PhoneNumber from, std::string message)
 {
     logger.logError("Uexpected: handleSendSms");
 }

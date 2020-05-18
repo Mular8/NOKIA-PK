@@ -10,11 +10,13 @@
 
 namespace ue
 {
-enum class CurrentView {
+enum class View {
     Status,
     HomeMenu,
     NewSms,
-    SmsList
+    SmsList,
+    SMS_SENT,
+    SMS_RECEIVED
 };
 class UserPort : public IUserPort
 {
@@ -22,8 +24,8 @@ public:
     UserPort(common::ILogger& logger, IUeGui& gui, common::PhoneNumber phoneNumber);
     constexpr static unsigned ListSmsItem = 1;
     constexpr static unsigned NewSmsItem = 0;
-    std::pair<CurrentView, IUeGui::BaseMode*> getCurrentMode() { return std::pair(currentView, currentMode); };
-    void setCurrentMode(CurrentView curView, IUeGui::BaseMode* mode) { currentView = curView; currentMode = mode; };
+    std::pair<View, IUeGui::BaseMode*> getCurrentMode() { return std::pair(View, currentMode); };
+    void setCurrentMode(View curView, IUeGui::BaseMode* mode) { View = curView; currentMode = mode; };
     void start(IUserEventsHandler& handler);
     void stop();
 
@@ -40,7 +42,7 @@ private:
     void handleHomeClicked();
     void handleAcceptClicked();
     void handleRejectClicked();
-    CurrentView currentView;
+    View View;
 
 };
 

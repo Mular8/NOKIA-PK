@@ -8,7 +8,7 @@ UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber pho
       gui(gui),
       currentMode(nullptr),
       phoneNumber(phoneNumber),
-      currentView(CurrentView::Status)
+      View(View::Status)
 
 {}
 
@@ -32,7 +32,7 @@ void UserPort::handleRejectClicked()
 {
     auto current = getCurrentMode();
     switch(current.first) {
-        case CurrentView::NewSms: {
+        case View::NewSms: {
             auto menu = (IUeGui::ISmsComposeMode*)current.second;
             menu->clearSmsText();
             showConnected();
@@ -50,13 +50,13 @@ void UserPort::handleHomeClicked()
 
 void UserPort::showNotConnected()
 {
-    currentView = CurrentView::Status;
+    View = View::Status;
     gui.showNotConnected();
 }
 
 void UserPort::showConnecting()
 {
-    currentView = CurrentView::Status;
+    View = View::Status;
     gui.showConnecting();
 }
 
@@ -64,7 +64,7 @@ void UserPort::handleAcceptClicked()
 {
     auto current = getCurrentMode();
     switch(current.first) {
-    case CurrentView::NewSms: {
+    case View::NewSms: {
         auto menu = (IUeGui::ISmsComposeMode*)current.second;
         auto recipient = menu->getPhoneNumber();
         auto text = menu->getSmsText();
@@ -73,10 +73,10 @@ void UserPort::handleAcceptClicked()
         showConnected();
         break;
     }
-        case CurrentView::HomeMenu: {
+        case View::HomeMenu: {
             auto currentItem = ((IUeGui::IListViewMode*)current.second)->getCurrentItemIndex();
             if(currentItem.first && currentItem.second == UserPort::NewSmsItem) {
-                setCurrentMode(CurrentView::NewSms, &gui.setSmsComposeMode());
+                setCurrentMode(View::NewSms, &gui.setSmsComposeMode());
             }
             break;
         }
@@ -93,7 +93,7 @@ void UserPort::showConnected()
     menu->clearSelectionList();
     menu->addSelectionListItem("View SMS", "List all new messages");
     menu->addSelectionListItem("Compose SMS", "New SMS");
-    setCurrentMode(CurrentView::HomeMenu, menu);
+    setCurrentMode(View::HomeMenu, menu);
 }
 
 }
