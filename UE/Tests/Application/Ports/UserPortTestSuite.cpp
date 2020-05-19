@@ -108,4 +108,10 @@ TEST_F(UserPortTestSuite, shallExitSmsCreationOnReject)
     rejectCallback();
 }
 
+TEST_F(UserPortTestSuite, shallShowReceivedSmsInformation)
+{
+    EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
+    objectUnderTest.showReceivedSms();
+}
+
 }

@@ -18,12 +18,16 @@ BaseState::~BaseState()
 
 void BaseState::handleTimeout()
 {
-    logger.logError("Uexpected: handleTimeout");
+    logger.logError("Unexpected: handleTimeout");
 }
 
+void BaseState::handleDisconnected()
+{
+    logger.logError("Unexpected: handleDisconnected");
+}
 void BaseState::handleSib(common::BtsId btsId)
 {
-    logger.logError("Uexpected: handleSib: ", btsId);
+    logger.logError("Unexpected: handleSib: ", btsId);
 }
 void BaseState::handleSendSms(common::PhoneNumber from, std::string message)
 {
@@ -31,12 +35,15 @@ void BaseState::handleSendSms(common::PhoneNumber from, std::string message)
 }
 void BaseState::handleAttachAccept()
 {
-    logger.logError("Uexpected: handleTimeout");
+    logger.logError("Unexpected: handleAttachAccept");
 }
 
 void BaseState::handleAttachReject()
 {
-    logger.logError("Uexpected: handleAttachReject");
+    logger.logError("Unexpected: handleAttachReject");
 }
-
+void BaseState::handleSmsReceived(common::PhoneNumber from, std::string text)
+{
+    logger.logError("Unexpected handleSmsReceived: ", from, text);
+}
 }

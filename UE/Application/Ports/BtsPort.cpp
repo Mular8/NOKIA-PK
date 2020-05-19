@@ -23,12 +23,14 @@ BtsPort::BtsPort(common::ILogger &logger, common::ITransport &transport, common:
 void BtsPort::start(IBtsEventsHandler &handler)
 {
     transport.registerMessageCallback([this](BinaryMessage msg) {handleMessage(msg);});
+    transport.registerDisconnectedCallback([this]{handleDisconnected();});
     this->handler = &handler;
 }
 
 void BtsPort::stop()
 {
     transport.registerMessageCallback(nullptr);
+    transport.registerDisconnectedCallback(nullptr);
     handler = nullptr;
 }
 
@@ -58,10 +60,19 @@ void BtsPort::handleMessage(BinaryMessage msg)
                 handler->handleAttachReject();
             break;
         }
+        case common::MessageId::Sms:
+        {
+            std::string message = reader.readRemainingText();
+            logger.logDebug("BtsPort, SmsReceived from: ", from);
+            logger.logDebug("BtsPort, SmsReceived message: ", message);
+            handler->handleSmsReceived(from, message);
+            break;
+        }
         default:
-            logger.logError("unknow message: ", msgId, ", from: ", from);
+            logger.logError("unknown message: ", msgId, ", from: ", from);
 
         }
+
     }
     catch (std::exception const& ex)
     {
@@ -69,6 +80,11 @@ void BtsPort::handleMessage(BinaryMessage msg)
     }
 }
 
+void BtsPort::handleDisconnected()
+{
+    logger.logError("Error: disconnected");
+    handler->handleDisconnected();
+}
 
 void BtsPort::sendAttachRequest(common::BtsId btsId)
 {

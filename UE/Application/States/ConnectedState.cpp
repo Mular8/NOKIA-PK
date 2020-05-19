@@ -1,5 +1,5 @@
 #include "ConnectedState.hpp"
-
+#include "Sms/Sms.hpp"
 namespace ue
 {
 void ConnectedState::handleSendSms(common::PhoneNumber recipient, std::string message)
@@ -9,6 +9,15 @@ void ConnectedState::handleSendSms(common::PhoneNumber recipient, std::string me
 ConnectedState::ConnectedState(Context &context)
     : BaseState(context, "ConnectedState")
 {
+    context.user.showConnected();
 }
-
+void ConnectedState::handleSmsReceived(common::PhoneNumber from,
+                                       std::string text)
+{
+    Sms incomingSms(from,text);
+    incomingSms.read = false;
+    incomingSms.sent = false;
+    context.db.insert(incomingSms);
+    context.user.showReceivedSms();
+}
 }

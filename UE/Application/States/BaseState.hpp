@@ -1,7 +1,8 @@
+#pragma once
 #include "IEventsHandler.hpp"
 #include "Logger/PrefixedLogger.hpp"
 #include "Context.hpp"
-
+#include "Messages/PhoneNumber.hpp"
 namespace ue
 {
 
@@ -16,9 +17,11 @@ public:
     //IUserEventsHandler interface
     void handleSendSms(common::PhoneNumber recipient, std::string message) override;
     // IBtsEventsHandler interface
+    void handleDisconnected() override;
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
+    void handleSmsReceived(common::PhoneNumber from, std::string text) override;
 protected:
     Context& context;
 private:

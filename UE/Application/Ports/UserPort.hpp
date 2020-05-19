@@ -4,9 +4,9 @@
 #include "Logger/PrefixedLogger.hpp"
 #include "IUeGui.hpp"
 #include "Messages/PhoneNumber.hpp"
+#include "Database/ISmsDatabase.hpp"
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/ISmsComposeMode.hpp"
-
 
 namespace ue
 {
@@ -18,6 +18,7 @@ enum class View {
     SMS_SENT,
     SMS_RECEIVED
 };
+
 class UserPort : public IUserPort
 {
 public:
@@ -28,14 +29,14 @@ public:
     void setCurrentMode(View curView, IUeGui::BaseMode* mode) { View = curView; currentMode = mode; };
     void start(IUserEventsHandler& handler);
     void stop();
-
     void showNotConnected() override;
     void showConnecting() override;
     void showConnected() override;
-
+    void showReceivedSms() override;
 private:
     IUeGui& gui;
     IUserEventsHandler* handler = nullptr;
+
     IUeGui::BaseMode* currentMode;
     common::PrefixedLogger logger;
     common::PhoneNumber phoneNumber;
@@ -43,7 +44,7 @@ private:
     void handleAcceptClicked();
     void handleRejectClicked();
     View View;
-
+    ISmsDatabase* db = nullptr;
 };
 
 
