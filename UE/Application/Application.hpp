@@ -22,7 +22,7 @@ public:
                 ISmsDatabase& db
                 );
     ~Application();
-
+    void handleSendSms(common::PhoneNumber from, std::string message) override;
     // ITimerEventsHandler interface
     void handleTimeout() override;
 

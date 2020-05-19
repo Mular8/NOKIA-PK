@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Messages/PhoneNumber.hpp"
 #include "Messages/BtsId.hpp"
 #include "Messages/PhoneNumber.hpp"
 namespace ue
@@ -21,7 +21,7 @@ class IBtsPort
 {
 public:
     virtual ~IBtsPort() = default;
-
+    virtual void sendSms(common::PhoneNumber, std::string) = 0;
     virtual void sendAttachRequest(common::BtsId) = 0;
 };
 

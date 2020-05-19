@@ -1,12 +1,12 @@
 #pragma once
-
+#include "BaseMode.hpp"
 #include "IUeGui.hpp"
 #include <utility>
 
 namespace ue
 {
 
-class IUeGui::IListViewMode
+class IUeGui::IListViewMode : public IUeGui::BaseMode
 {
 public:
     using Selection = unsigned;

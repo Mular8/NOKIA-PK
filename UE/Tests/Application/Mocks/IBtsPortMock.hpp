@@ -21,9 +21,10 @@ public:
 class IBtsPortMock : public IBtsPort
 {
 public:
+
     IBtsPortMock();
     ~IBtsPortMock() override;
-
+    MOCK_METHOD(void, sendSms, (common::PhoneNumber, std::string), (final));
     MOCK_METHOD(void, sendAttachRequest, (common::BtsId), (final));
 };
 

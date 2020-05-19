@@ -4,6 +4,15 @@
 
 namespace ue
 {
+void BtsPort::sendSms(common::PhoneNumber from, std::string message)
+{
+    logger.logDebug("sendSms: ", from);
+    common::OutgoingMessage msg{common::MessageId::Sms,
+                                phoneNumber,
+                                from};
+    msg.writeText(message);
+    transport.sendMessage(msg.getMessage());
+}
 
 BtsPort::BtsPort(common::ILogger &logger, common::ITransport &transport, common::PhoneNumber phoneNumber)
     : logger(logger, "[BTS-PORT]"),
