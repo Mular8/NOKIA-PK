@@ -89,13 +89,13 @@ void UserPort::handleAcceptClicked()
 
 void UserPort::showConnected()
 {
-
+    gui.showConnected();
     auto menu = (IUeGui::IListViewMode*) &gui.setListViewMode();
     menu->clearSelectionList();
     menu->addSelectionListItem("View SMS", "List all new messages");
     menu->addSelectionListItem("Compose SMS", "New SMS");
     setCurrentMode(View::HomeMenu, menu);
-    gui.showConnected();
+
 }
 
 

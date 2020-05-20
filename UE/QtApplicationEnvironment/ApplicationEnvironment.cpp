@@ -6,13 +6,17 @@
 #include <iomanip>
 #include <fstream>
 #include "Messages.hpp"
-
+#include <stdlib.h>
+#include <random>
 namespace ue
 {
-
 namespace
 {
-
+int getRandomPhoneNumber()
+{
+    srand(time(nullptr));
+    return rand()%200;
+}
 std::string getPhoneNumberPrefix(PhoneNumber const& phoneNumber)
 {
     return " [phone:" + to_string(phoneNumber) + "]";
@@ -34,7 +38,7 @@ std::string logFilename(PhoneNumber phoneNumber)
 
 ApplicationEnvironment::ApplicationEnvironment(int& argc, char* argv[])
     : configuration(ApplicationEnvironment::readConfiguration(argc, argv)),
-      myPhoneNumber(PhoneNumber{configuration->getNumber<decltype(PhoneNumber::value)>("phone", 123)}),
+      myPhoneNumber(PhoneNumber{configuration->getNumber<decltype(PhoneNumber::value)>("phone",getRandomPhoneNumber())}),
       logFile(logFilename(myPhoneNumber)),
       loggerBase(logFile),
       logger(loggerBase, getPhoneNumberPrefix(myPhoneNumber)),
