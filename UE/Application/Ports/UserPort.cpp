@@ -1,14 +1,16 @@
 #include "UserPort.hpp"
+#include "Database/ISmsDatabase.hpp"
 #include "UeGui/IListViewMode.hpp"
 
 namespace ue
 {
 
-UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber) : logger(logger, "[USER-PORT]"),
+UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber, ISmsDatabase &db) : logger(logger, "[USER-PORT]"),
       gui(gui),
       currentMode(nullptr),
       phoneNumber(phoneNumber),
-      View(View::Status)
+      View(View::Status),
+      db(db)
 
 {}
 
@@ -90,17 +92,35 @@ void UserPort::handleAcceptClicked()
 void UserPort::showConnected()
 {
     gui.showConnected();
-    auto menu = (IUeGui::IListViewMode*) &gui.setListViewMode();
-    menu->clearSelectionList();
-    menu->addSelectionListItem("View SMS", "List all new messages");
-    menu->addSelectionListItem("Compose SMS", "New SMS");
-    setCurrentMode(View::HomeMenu, menu);
-
+    showMenu();
+    //showSmsList();
 }
 
 
 void UserPort::showReceivedSms()
 {
     gui.showNewSms();
+}
+
+void UserPort::showSmsList()
+{
+    auto menu = (IUeGui::IListViewMode*) &gui.setListViewMode();
+    menu->clearSelectionList();
+    std::vector<Sms> smsList=db.getAll();
+    if(db.size()==0) menu->addSelectionListItem("No messages","");
+    for(Sms sms : smsList)
+    {
+        menu->addSelectionListItem((sms.read==true?"- ":"+ ")+to_string(sms.from),sms.message);
+    }
+    setCurrentMode(View::SmsList,menu);
+}
+
+void UserPort::showMenu()
+{
+    auto menu = (IUeGui::IListViewMode*) &gui.setListViewMode();
+    menu->clearSelectionList();
+    menu->addSelectionListItem("View SMS", "List all new messages");
+    menu->addSelectionListItem("Compose SMS", "New SMS");
+    setCurrentMode(View::HomeMenu, menu);
 }
 }

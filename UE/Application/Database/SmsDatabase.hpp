@@ -16,6 +16,6 @@ public:
     void remove(int id) override;
     void removeAll() override;
     void insert(Sms sms) override;
-    size_t size();
+    long size() override;
 };
 }

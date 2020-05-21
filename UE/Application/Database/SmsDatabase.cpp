@@ -43,7 +43,7 @@ void SmsDatabase::insert(Sms sms)
     sms.messageId=obiekty.size();
     obiekty.push_back(sms);
 }
-size_t SmsDatabase::size()
+long SmsDatabase::size()
 {
     return obiekty.size();
 }

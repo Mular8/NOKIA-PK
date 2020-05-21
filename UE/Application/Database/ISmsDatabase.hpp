@@ -14,6 +14,6 @@ public:
     virtual void remove(int id)=0;
     virtual void removeAll()=0;
     virtual void insert(Sms sms)=0;
-    size_t size();
+    virtual long size();
 };
 }

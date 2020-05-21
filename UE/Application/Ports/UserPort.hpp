@@ -22,7 +22,7 @@ enum class View {
 class UserPort : public IUserPort
 {
 public:
-    UserPort(common::ILogger& logger, IUeGui& gui, common::PhoneNumber phoneNumber);
+    UserPort(common::ILogger& logger, IUeGui& gui, common::PhoneNumber phoneNumber, ISmsDatabase& db);
     constexpr static unsigned ListSmsItem = 1;
     constexpr static unsigned NewSmsItem = 0;
     std::pair<View, IUeGui::BaseMode*> getCurrentMode() { return std::pair(View, currentMode); };
@@ -33,6 +33,8 @@ public:
     void showConnecting() override;
     void showConnected() override;
     void showReceivedSms() override;
+    void showSmsList() override;
+    void showMenu() override;
 private:
     IUeGui& gui;
     IUserEventsHandler* handler = nullptr;
@@ -44,7 +46,7 @@ private:
     void handleAcceptClicked();
     void handleRejectClicked();
     View View;
-    ISmsDatabase* db = nullptr;
+    ISmsDatabase& db;
 };
 
 

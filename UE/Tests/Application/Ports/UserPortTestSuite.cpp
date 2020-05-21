@@ -6,7 +6,7 @@
 #include "Mocks/IUserPortMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include "Mocks/IUeGuiMock.hpp"
-
+#include "Mocks/ISmsDatabaseMock.hpp"
 namespace ue
 {
 using namespace ::testing;
@@ -20,10 +20,11 @@ protected:
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
     StrictMock<ISmsComposeModeMock> smsComposeModeMock;
+    StrictMock<ISmsDatabaseMock> databaseMock;
     IUeGui::Callback rejectCallback;
     IUeGui::Callback acceptCallback;
 
-    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER};
+    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, databaseMock};
 
     UserPortTestSuite()
     {
