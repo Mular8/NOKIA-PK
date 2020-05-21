@@ -4,6 +4,15 @@
 
 namespace ue
 {
+void BtsPort::sendSms(common::PhoneNumber from, std::string message)
+{
+    logger.logDebug("sendSms: ", from);
+    common::OutgoingMessage msg{common::MessageId::Sms,
+                                phoneNumber,
+                                from};
+    msg.writeText(message);
+    transport.sendMessage(msg.getMessage());
+}
 
 BtsPort::BtsPort(common::ILogger &logger, common::ITransport &transport, common::PhoneNumber phoneNumber)
     : logger(logger, "[BTS-PORT]"),
@@ -51,10 +60,19 @@ void BtsPort::handleMessage(BinaryMessage msg)
                 handler->handleAttachReject();
             break;
         }
+        case common::MessageId::Sms:
+        {
+            std::string message = reader.readRemainingText();
+            logger.logDebug("BtsPort, SmsReceived from: ", from);
+            logger.logDebug("BtsPort, SmsReceived message: ", message);
+            handler->handleSmsReceived(from, message);
+            break;
+        }
         default:
-            logger.logError("unknow message: ", msgId, ", from: ", from);
+            logger.logError("unknown message: ", msgId, ", from: ", from);
 
         }
+
     }
     catch (std::exception const& ex)
     {

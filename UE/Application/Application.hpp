@@ -18,9 +18,11 @@ public:
                 ILogger& iLogger,
                 IBtsPort& bts,
                 IUserPort& user,
-                ITimerPort& timer);
+                ITimerPort& timer,
+                ISmsDatabase& db
+                );
     ~Application();
-
+    void handleSendSms(common::PhoneNumber from, std::string message) override;
     // ITimerEventsHandler interface
     void handleTimeout() override;
 
@@ -29,6 +31,7 @@ public:
     void handleDisconnected() override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
+    void handleSmsReceived(common::PhoneNumber PhoneNumber, std::string msg) override;
 
 private:
     Context context;

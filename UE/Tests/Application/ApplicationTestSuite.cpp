@@ -6,6 +6,7 @@
 #include "Mocks/IBtsPortMock.hpp"
 #include "Mocks/IUserPortMock.hpp"
 #include "Mocks/ITimerPortMock.hpp"
+#include "Mocks/ISmsDatabaseMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include <memory>
 
@@ -23,13 +24,19 @@ protected:
     StrictMock<IUserPortMock> userPortMock;
     StrictMock<ITimerPortMock> timerPortMock;
 
+
     Expectation notConnectedExpectation = EXPECT_CALL(userPortMock, showNotConnected());
+
+
+    StrictMock<ISmsDatabaseMock> dbMock;
 
     Application objectUnderTest{PHONE_NUMBER,
                                 loggerMock,
                                 btsPortMock,
                                 userPortMock,
-                                timerPortMock};
+                                timerPortMock,
+                               dbMock
+                               };
 };
 
 struct ApplicationNotConnectedTestSuite : ApplicationTestSuite
@@ -63,6 +70,7 @@ TEST_F(ApplicationConnectingTestSuite, shallShowNotConnectedOnAttachReject)
     objectUnderTest.handleAttachReject();
 
 }
+
 TEST_F(ApplicationConnectingTestSuite, shallShowNotConnectedOnTimeout)
 {
     EXPECT_CALL(userPortMock, showNotConnected());
@@ -82,6 +90,7 @@ TEST_F(ApplicationConnectedTestSuite, shallShowConnectedOnAttachAccept)
 {
 
 }
+
 
 
 }
