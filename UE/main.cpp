@@ -14,11 +14,10 @@ int main(int argc, char* argv[])
     auto& tranport = appEnv->getTransportToBts();
     auto& gui = appEnv->getUeGui();
     auto phoneNumber = appEnv->getMyPhoneNumber();
-
-    BtsPort bts(logger, tranport, phoneNumber);
-    UserPort user(logger, gui, phoneNumber);
-    TimerPort timer(logger);
     SmsDatabase db;
+    BtsPort bts(logger, tranport, phoneNumber);
+    UserPort user(logger, gui, phoneNumber, db);
+    TimerPort timer(logger);
     Application app(phoneNumber, logger, bts, user, timer, db);
     bts.start(app);
     user.start(app);

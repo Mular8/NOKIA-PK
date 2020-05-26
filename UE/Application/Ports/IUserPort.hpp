@@ -22,6 +22,10 @@ public:
     virtual void showConnecting() = 0;
     virtual void showConnected() = 0;
     virtual void showReceivedSms() = 0;
+    virtual void showSmsList() = 0;
+    virtual void showMenu() = 0;
+    virtual void showSms(int id) = 0;
+    virtual void showComposeSmsMode() = 0;
 };
 
 }

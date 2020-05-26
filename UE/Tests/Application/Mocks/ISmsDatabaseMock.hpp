@@ -17,6 +17,7 @@ public:
     MOCK_METHOD(void, remove, (int), (final));
     MOCK_METHOD(void, removeAll, (), (final));
     MOCK_METHOD(void, insert, (Sms), (final));
+    MOCK_METHOD(long, size, (), (final));
 };
 
 }
