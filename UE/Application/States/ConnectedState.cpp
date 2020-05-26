@@ -16,7 +16,6 @@ void ConnectedState::handleSmsReceived(common::PhoneNumber from,
 {
     Sms incomingSms(from,text);
     incomingSms.read = false;
-    incomingSms.sent = false;
     context.db.insert(incomingSms);
     context.user.showReceivedSms();
 }
