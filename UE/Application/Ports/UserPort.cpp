@@ -10,7 +10,7 @@ UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber pho
       gui(gui),
       currentMode(nullptr),
       phoneNumber(phoneNumber),
-      View(View::Status),
+      view(View::Status),
       db(db)
 
 {}
@@ -21,11 +21,6 @@ void UserPort::start(IUserEventsHandler &handler)
     gui.setTitle("Nokia " + to_string(phoneNumber));
     gui.setRejectCallback([this]() { handleRejectClicked(); });
     gui.setAcceptCallback([this]() { handleAcceptClicked(); });
-    db.insert(Sms{PhoneNumber{23},"Fwgaewhawehawha"});
-    db.insert(Sms{PhoneNumber{25},"Fgegawgawgawwa"});
-    db.insert(Sms{PhoneNumber{53},"HSeregseehawha"});
-    db.insert(Sms{PhoneNumber{65},"Fgre"});
-
 }
 
 void UserPort::stop()
@@ -37,7 +32,7 @@ void UserPort::stop()
 }
 
 void UserPort::handleAcceptClicked()
-{
+{/*
     auto current = getCurrentMode();
     switch(current.first) {
     case View::NewSms: {
@@ -73,11 +68,12 @@ void UserPort::handleAcceptClicked()
         break;
          }
     }
+    */
 }
 
 void UserPort::handleRejectClicked()
 {
-    switch(View) {
+    switch(view) {
     case View::HomeMenu:
         break;
     case View::SmsList:
@@ -100,13 +96,13 @@ void UserPort::handleHomeClicked()
 
 void UserPort::showNotConnected()
 {
-    View = View::Status;
+    view = View::Status;
     gui.showNotConnected();
 }
 
 void UserPort::showConnecting()
 {
-    View = View::Status;
+    view = View::Status;
     gui.showConnecting();
 }
 
@@ -132,7 +128,7 @@ void UserPort::showSmsList()
     {
     for(Sms sms : smsList)
     {
-        menu.addSelectionListItem(to_string(sms.from)+(sms.read==true?"\tNew":""),sms.message);
+        menu.addSelectionListItem(to_string(sms.from)+(sms.read==false?"\tNew":""),sms.message);
     }
     gui.setAcceptCallback([&](){
         showSms(menu.getCurrentItemIndex().second);
@@ -147,7 +143,7 @@ void UserPort::showSms(int id)
     Sms* sms = db.get(id);
     std::string text="From: "+to_string(sms->from)+"\n\n"+sms->message;
     menu.setText(text);
-    sms->read=false;
+    sms->read=true;
     setCurrentMode(View::SmsView, &menu);
 }
 
@@ -164,10 +160,22 @@ void UserPort::showMenu()
                 showSmsList();
                 break;
             case 1:
-                setCurrentMode(View::NewSms, &gui.setSmsComposeMode());
+                showComposeSmsMode();
                 break;
         }
     });
 
+}
+
+void UserPort::showComposeSmsMode()
+{
+     IUeGui::ISmsComposeMode& composeMode = gui.setSmsComposeMode();
+     composeMode.clearSmsText();
+     setCurrentMode(View::NewSms, &composeMode);
+     gui.setAcceptCallback([&](){
+         handler->handleSendSms(composeMode.getPhoneNumber(),composeMode.getSmsText());
+         composeMode.clearSmsText();
+         showMenu();
+     });
 }
 }

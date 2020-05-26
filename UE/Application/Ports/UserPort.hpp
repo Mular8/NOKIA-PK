@@ -26,8 +26,8 @@ public:
     UserPort(common::ILogger& logger, IUeGui& gui, common::PhoneNumber phoneNumber, ISmsDatabase& db);
     constexpr static unsigned ListSmsItem = 1;
     constexpr static unsigned NewSmsItem = 0;
-    std::pair<View, IUeGui::BaseMode*> getCurrentMode() { return std::pair(View, currentMode); };
-    void setCurrentMode(View curView, IUeGui::BaseMode* mode) { View = curView; currentMode = mode; };
+    std::pair<View, IUeGui::BaseMode*> getCurrentMode() { return std::pair(view, currentMode); };
+    void setCurrentMode(View curView, IUeGui::BaseMode* mode) { view = curView; currentMode = mode; };
     void start(IUserEventsHandler& handler);
     void stop();
     void showNotConnected() override;
@@ -37,6 +37,7 @@ public:
     void showSmsList() override;
     void showMenu() override;
     void showSms(int id) override;
+    void showComposeSmsMode() override;
 private:
     IUeGui& gui;
     IUserEventsHandler* handler = nullptr;
@@ -47,7 +48,7 @@ private:
     void handleHomeClicked();
     void handleAcceptClicked();
     void handleRejectClicked();
-    View View;
+    View view;
     ISmsDatabase& db;
     int test=0;
 };
