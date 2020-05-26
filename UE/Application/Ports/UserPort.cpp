@@ -32,43 +32,7 @@ void UserPort::stop()
 }
 
 void UserPort::handleAcceptClicked()
-{/*
-    auto current = getCurrentMode();
-    switch(current.first) {
-    case View::NewSms: {
-        auto menu = (IUeGui::ISmsComposeMode*)current.second;
-        auto recipient = menu->getPhoneNumber();
-        auto text = menu->getSmsText();
-        handler->handleSendSms(recipient, text);
-        menu->clearSmsText();
-        showConnected();
-        break;
-    }
-    case View::HomeMenu: {
-        auto currentItem = ((IUeGui::IListViewMode*)current.second)->getCurrentItemIndex();
-        if(currentItem.first && currentItem.second == UserPort::NewSmsItem) {
-            setCurrentMode(View::NewSms, &gui.setSmsComposeMode());
-            }
-        else if(currentItem.first && currentItem.second == UserPort::ListSmsItem)
-        {
-            showSmsList();
-        }
-        break;
-        }
-    case View::SmsList:
-    {
-        auto currentItem = ((IUeGui::IListViewMode*)current.second)->getCurrentItemIndex();
-        if(currentItem.first)
-        {
-            showSms(currentItem.second + 1);
-        }
-        break;
-    }
-    default: {
-        break;
-         }
-    }
-    */
+{
 }
 
 void UserPort::handleRejectClicked()
