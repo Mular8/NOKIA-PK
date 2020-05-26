@@ -16,12 +16,7 @@ public:
     std::string message;
     PhoneNumber from;
     PhoneNumber to;
-    //Cesar decryption
-    std::string decryption() override;
-    std::string encryption() override;
-    int encrypion_code=3;
     bool read;
-    bool sent;
 };
 
 }
