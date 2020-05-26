@@ -27,6 +27,7 @@ public:
     MOCK_METHOD(void, showReceivedSms, (), (final));
     MOCK_METHOD(void, showSmsList, (), (final));
     MOCK_METHOD(void, showMenu, (), (final));
+    MOCK_METHOD(void, showSms, (int),(final));
 };
 
 }

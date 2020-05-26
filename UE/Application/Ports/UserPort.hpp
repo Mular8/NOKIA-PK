@@ -15,8 +15,9 @@ enum class View {
     HomeMenu,
     NewSms,
     SmsList,
-    SMS_SENT,
-    SMS_RECEIVED
+    SmsSent,
+    SmsReceived,
+    SmsView
 };
 
 class UserPort : public IUserPort
@@ -35,6 +36,7 @@ public:
     void showReceivedSms() override;
     void showSmsList() override;
     void showMenu() override;
+    void showSms(int id) override;
 private:
     IUeGui& gui;
     IUserEventsHandler* handler = nullptr;
@@ -47,6 +49,7 @@ private:
     void handleRejectClicked();
     View View;
     ISmsDatabase& db;
+    int test=0;
 };
 
 
