@@ -33,7 +33,8 @@ public:
     void showNotConnected() override;
     void showConnecting() override;
     void showConnected() override;
-    void showReceivedSms() override;
+    void showNewSms() override;
+    void showSmsReceived() override;
     void showSmsList() override;
     void showMenu() override;
     void showSms(int id) override;
