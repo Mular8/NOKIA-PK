@@ -24,11 +24,12 @@ public:
     MOCK_METHOD(void, showNotConnected, (), (final));
     MOCK_METHOD(void, showConnecting, (), (final));
     MOCK_METHOD(void, showConnected, (), (final));
-    MOCK_METHOD(void, showReceivedSms, (), (final));
+    MOCK_METHOD(void, showNewSms, (), (final));
     MOCK_METHOD(void, showSmsList, (), (final));
     MOCK_METHOD(void, showMenu, (), (final));
     MOCK_METHOD(void, showSms, (int),(final));
     MOCK_METHOD(void, showComposeSmsMode,(),(final));
+    MOCK_METHOD(void, showSmsReceived,(),(final));
 };
 
 }
