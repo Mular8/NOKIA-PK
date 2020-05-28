@@ -2,6 +2,7 @@
 #include "Database/ISmsDatabase.hpp"
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/ITextMode.hpp"
+#include "UeGui/ICallMode.hpp"
 
 namespace ue
 {
@@ -74,10 +75,15 @@ void UserPort::showConnected()
 {
     gui.showConnected();
     showMenu();
+
 }
 
+void UserPort::showSmsReceived()
+{
+    gui.showSmsReceived();
+}
 
-void UserPort::showReceivedSms()
+void UserPort::showNewSms()
 {
     gui.showNewSms();
 }
@@ -108,6 +114,10 @@ void UserPort::showSms(int id)
     std::string text="From: "+to_string(sms->from)+"\n\n"+sms->message;
     menu.setText(text);
     sms->read=true;
+    bool allRead=true;
+    for(Sms sms : db.getAll())
+        if(sms.read==false){allRead=false;break;}
+    if(allRead==true)showSmsReceived();
     setCurrentMode(View::SmsView, &menu);
 }
 

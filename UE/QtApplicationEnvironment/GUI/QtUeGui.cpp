@@ -213,7 +213,7 @@ void QtUeGui::showConnected()
 
 void QtUeGui::showConnecting()
 {
-    setAlertMode().setText("Connecting");;
+    setAlertMode().setText("Connecting");
     emit setConnectedStateSignal("Connecting", false);
 }
 
@@ -227,6 +227,12 @@ void QtUeGui::showNewSms()
 {
     emit setNewMessageSignal(true);
 }
+
+void QtUeGui::showSmsReceived()
+{
+    emit setNewMessageSignal(false);
+}
+
 
 void QtUeGui::showPeerUserNotAvailable(PhoneNumber peer)
 {
