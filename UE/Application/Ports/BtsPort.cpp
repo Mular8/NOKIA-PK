@@ -68,6 +68,34 @@ void BtsPort::handleMessage(BinaryMessage msg)
             handler->handleSmsReceived(from, message);
             break;
         }
+        case common::MessageId::UnknownSender:
+        {
+            logger.logDebug("Unknown Sender: ",from);
+            break;
+        }
+        case common::MessageId::CallRequest:
+        {
+            logger.logDebug("Call request: ",from);
+            handler->handleReceivedCallRequest(from);
+            break;
+        }
+        case common::MessageId::CallAccepted:
+        {
+            logger.logDebug("Call accepted from: ",from);
+            handler->handleReceivedCallAccepted(from);
+            break;
+        }
+        case common::MessageId::CallDropped:
+        {
+            logger.logDebug("Call dropped from: ",from);
+            handler->handleReceivedCallDropped(from);
+            break;
+        }
+        case common::MessageId::UnknownRecipient:
+        {
+            logger.logDebug("Unknown Recipient: ",from);
+            break;
+        }
         default:
             logger.logError("unknown message: ", msgId, ", from: ", from);
 

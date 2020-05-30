@@ -75,7 +75,6 @@ void UserPort::showConnected()
 {
     gui.showConnected();
     showMenu();
-
 }
 
 void UserPort::showSmsReceived()
@@ -152,4 +151,6 @@ void UserPort::showComposeSmsMode()
          showMenu();
      });
 }
+
+
 }

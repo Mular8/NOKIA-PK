@@ -27,6 +27,7 @@ void Application::handleTimeout()
 {
     context.state->handleTimeout();
 }
+
 void Application::handleDisconnected()
 {
     context.state->handleDisconnected();
@@ -56,6 +57,20 @@ void Application::handleSmsReceived(common::PhoneNumber from, std::string messag
     context.state->handleSmsReceived(from, message);
 }
 
+void Application::handleReceivedCallRequest(common::PhoneNumber phoneNumber)
+{
+    context.state->handleReceivedCallRequest(phoneNumber);
+}
+
+void Application::handleReceivedCallAccepted(common::PhoneNumber phoneNumber)
+{
+    context.state->handleReceivedCallAccepted(phoneNumber);
+}
+
+void Application::handleReceivedCallDropped(common::PhoneNumber phoneNumber)
+{
+    context.state->handleReceivedCallDropped(phoneNumber);
+}
 }
 
 

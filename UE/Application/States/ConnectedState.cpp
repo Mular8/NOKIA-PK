@@ -19,4 +19,16 @@ void ConnectedState::handleSmsReceived(common::PhoneNumber from,
     context.db.insert(incomingSms);
     context.user.showNewSms();
 }
+void ConnectedState::handleReceivedCallAccepted(common::PhoneNumber recipient)
+{
+    context.logger.logDebug("Received Call Accepted from ", recipient);
+}
+void ConnectedState::handleReceivedCallDropped(common::PhoneNumber recipient)
+{
+    context.logger.logDebug("Received Call dropped from ", recipient);
+}
+void ConnectedState::handleReceivedCallRequest(common::PhoneNumber recipient)
+{
+    context.logger.logDebug("Received Call request from ", recipient);
+}
 }

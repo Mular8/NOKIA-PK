@@ -26,7 +26,7 @@ public:
     virtual void showMenu() = 0;
     virtual void showSms(int id) = 0;
     virtual void showComposeSmsMode() = 0;
-    virtual void showSmsReceived() =0;
+    virtual void showSmsReceived() = 0;
 };
 
 }

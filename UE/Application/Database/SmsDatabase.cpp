@@ -4,6 +4,7 @@
 namespace ue
 {
 SmsDatabase::SmsDatabase(){}
+SmsDatabase::SmsDatabase(std::vector<Sms> smsList):obiekty(smsList){}
 Sms* SmsDatabase::get(int id)
 {
     try
@@ -20,12 +21,7 @@ std::vector<Sms> SmsDatabase::getAll()
 {
     return obiekty;
 }
-void SmsDatabase::update(Sms sms, int id)
-{
-    Sms* temp=this->get(id);
-    temp->message=sms.message;
-    temp->messageId=id;
-}
+
 void SmsDatabase::remove(int id)
 {
     obiekty.erase(obiekty.begin() + id);
