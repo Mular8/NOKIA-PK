@@ -22,6 +22,7 @@ void UserPort::start(IUserEventsHandler &handler)
     gui.setTitle("Nokia " + to_string(phoneNumber));
     gui.setRejectCallback([this]() { handleRejectClicked(); });
     gui.setAcceptCallback([this]() { handleAcceptClicked(); });
+    logger.logDebug("UserPort started");
 }
 
 void UserPort::stop()
