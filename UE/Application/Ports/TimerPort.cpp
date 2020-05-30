@@ -17,7 +17,7 @@ TimerPort::~TimerPort()
 
 void TimerPort::start(ITimerEventsHandler &handler)
 {
-    logger.logInfo("Started");
+    logger.logDebug("Started");
     clockStart=Clock::now();
     this->handler = &handler;
 }
@@ -37,7 +37,7 @@ void TimerPort::stop()
 
 void TimerPort::startTimer(const Duration duration)
 {
-    logger.logInfo("Start timer: ", duration.count(), "ms");
+    logger.logDebug("Start timer: ", duration.count(), "ms");
 
     timerThread=std::thread{&TimerPort::waitForTimeout, this, duration};
 }
@@ -45,7 +45,7 @@ void TimerPort::startTimer(const Duration duration)
 void TimerPort::stopTimer()
 {
     pthread_cancel(timerThread.native_handle());
-    logger.logInfo("Stop timer");
+    logger.logDebug("Stop timer");
 
 
 
