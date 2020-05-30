@@ -1,32 +1,60 @@
 #include "TimerPort.hpp"
+#include <ctime>
 
 namespace ue
 {
 
 TimerPort::TimerPort(common::ILogger &logger)
     : logger(logger, "[TIMER PORT]")
-{}
+{
+
+}
+
+TimerPort::~TimerPort()
+{
+
+}
 
 void TimerPort::start(ITimerEventsHandler &handler)
 {
-    logger.logDebug("Started");
+    logger.logInfo("Started");
+    clockStart=Clock::now();
     this->handler = &handler;
 }
 
 void TimerPort::stop()
 {
-    logger.logDebug("Stoped");
+
+
     handler = nullptr;
+    if(timerThread.joinable()){
+        timerThread.detach();
+    }
+    clockEnd=Clock::now();
+    logger.logInfo("Phone stopped working after ", std::chrono::duration_cast<std::chrono::seconds>(clockEnd-clockStart).count()," seconds");
+
 }
 
-void TimerPort::startTimer(Duration duration)
+void TimerPort::startTimer(const Duration duration)
 {
-    logger.logDebug("Start timer: ", duration.count(), "ms");
+    logger.logInfo("Start timer: ", duration.count(), "ms");
+
+    timerThread=std::thread{&TimerPort::waitForTimeout, this, duration};
 }
 
 void TimerPort::stopTimer()
 {
-    logger.logDebug("Stop timer");
-}
+    pthread_cancel(timerThread.native_handle());
+    logger.logInfo("Stop timer");
 
+
+
+}
+void TimerPort::waitForTimeout(Duration duration)
+{
+
+    std::this_thread::sleep_for(duration);
+    handler->handleTimeout();
+
+}
 }

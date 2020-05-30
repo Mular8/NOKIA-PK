@@ -16,6 +16,7 @@ Application::Application(common::PhoneNumber phoneNumber,
 {
     logger.logInfo("Started");
     context.setState<NotConnectedState>();
+
 }
 
 Application::~Application()
@@ -25,6 +26,7 @@ Application::~Application()
 
 void Application::handleTimeout()
 {
+
     context.state->handleTimeout();
 }
 

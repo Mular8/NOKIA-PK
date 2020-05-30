@@ -21,6 +21,7 @@ void ConnectingState::handleAttachReject(){
 
 void ConnectingState::handleTimeout(){
     context.logger.logError("timeout");
+   // context.timer.stopTimer();
     context.setState<NotConnectedState>();
 
 }
