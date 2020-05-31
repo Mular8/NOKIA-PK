@@ -17,13 +17,14 @@ enum class View {
     SmsList,
     SmsSent,
     SmsReceived,
-    SmsView
+    SmsView,
+    SentSmsView
 };
 
 class UserPort : public IUserPort
 {
 public:
-    UserPort(common::ILogger& logger, IUeGui& gui, common::PhoneNumber phoneNumber, ISmsDatabase& db);
+    UserPort(common::ILogger& logger, IUeGui& gui, common::PhoneNumber phoneNumber, ISmsDatabase& db, ISmsDatabase& db_w);
     constexpr static unsigned ListSmsItem = 1;
     constexpr static unsigned NewSmsItem = 0;
     std::pair<View, IUeGui::BaseMode*> getCurrentMode() { return std::pair(view, currentMode); };
@@ -39,6 +40,8 @@ public:
     void showMenu() override;
     void showSms(int id) override;
     void showComposeSmsMode() override;
+    void showSentSMSList() override;
+    void showSentSMS(int id) override;
 private:
     IUeGui& gui;
     IUserEventsHandler* handler = nullptr;
@@ -51,6 +54,7 @@ private:
     void handleRejectClicked();
     View view;
     ISmsDatabase& db;
+    ISmsDatabase& db_w;
     int test=0;
 };
 

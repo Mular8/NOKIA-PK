@@ -7,12 +7,13 @@
 namespace ue
 {
 
-UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber, ISmsDatabase &db) : logger(logger, "[USER-PORT]"),
+UserPort::UserPort(common::ILogger &logger, IUeGui &gui, common::PhoneNumber phoneNumber, ISmsDatabase &db, ISmsDatabase &db_w) : logger(logger, "[USER-PORT]"),
       gui(gui),
       currentMode(nullptr),
       phoneNumber(phoneNumber),
       view(View::Status),
-      db(db)
+      db(db),
+      db_w(db_w)
 
 {}
 
@@ -49,6 +50,9 @@ void UserPort::handleRejectClicked()
         break;
     case View::NewSms:
         showMenu();
+        break;
+    case View::SentSmsView:
+        showSentSMSList();
         break;
     }
 
@@ -89,6 +93,7 @@ void UserPort::showNewSms()
 
 void UserPort::showSmsList()
 {
+
     IUeGui::IListViewMode& menu = gui.setListViewMode();
     menu.clearSelectionList();
     std::vector<Sms> smsList=db.getAll();
@@ -126,6 +131,7 @@ void UserPort::showMenu()
     menu.clearSelectionList();
     menu.addSelectionListItem("View SMS", "List all new messages");
     menu.addSelectionListItem("Compose SMS", "New SMS");
+    menu.addSelectionListItem("Sent SMS list", "Sent messages list");
     setCurrentMode(View::HomeMenu, &menu);
     gui.setAcceptCallback([&](){
         switch(menu.getCurrentItemIndex().second){
@@ -134,6 +140,9 @@ void UserPort::showMenu()
                 break;
             case 1:
                 showComposeSmsMode();
+                break;
+            case 2:
+                showSentSMSList();
                 break;
         }
     });
@@ -151,6 +160,38 @@ void UserPort::showComposeSmsMode()
          showMenu();
      });
 }
+void UserPort::showSentSMSList(){
 
+    IUeGui::IListViewMode& menu = gui.setListViewMode();
+    menu.clearSelectionList();
+    std::vector<Sms> smsList=db_w.getAll();
+    if(db_w.size()==0) menu.addSelectionListItem("No messages","");
+    else
+    {
+    for(Sms sms : smsList)
+    {
+        menu.addSelectionListItem(to_string(sms.from)+(sms.read==false?"\tNew":""),sms.message);
+    }
+    gui.setAcceptCallback([&](){
+
+        showSentSMS(menu.getCurrentItemIndex().second);
+
+    });
+    }
+    setCurrentMode(View::SmsList,&menu);
+}
+void UserPort::showSentSMS(int id)
+{
+    IUeGui::ITextMode& menu = gui.setViewTextMode();
+    Sms* sms = db_w.get(id);
+    std::string text="To: "+to_string(sms->from)+"\n\n"+sms->message;
+    menu.setText(text);
+    sms->read=true;
+    bool allRead=true;
+    for(Sms sms : db_w.getAll())
+        if(sms.read==false){allRead=false;break;}
+    if(allRead==true)showSmsReceived();
+    setCurrentMode(View::SentSmsView, &menu);
+}
 
 }

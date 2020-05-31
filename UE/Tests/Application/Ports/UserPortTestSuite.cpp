@@ -24,7 +24,7 @@ protected:
     IUeGui::Callback rejectCallback;
     IUeGui::Callback acceptCallback;
 
-    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, databaseMock};
+    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, databaseMock, databaseMock};
 
     UserPortTestSuite()
     {

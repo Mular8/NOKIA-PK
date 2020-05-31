@@ -27,6 +27,8 @@ public:
     virtual void showSms(int id) = 0;
     virtual void showComposeSmsMode() = 0;
     virtual void showSmsReceived() = 0;
+   virtual void showSentSMSList() = 0;
+    virtual void showSentSMS(int id) = 0;
 };
 
 }

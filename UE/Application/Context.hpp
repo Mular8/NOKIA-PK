@@ -14,6 +14,7 @@ struct Context
     IUserPort& user;
     ITimerPort& timer;
     ISmsDatabase& db;
+    ISmsDatabase& db_w;
     std::unique_ptr<IEventsHandler> state{};
 
     template <typename State, typename ...Arg>

@@ -35,6 +35,7 @@ protected:
                                 btsPortMock,
                                 userPortMock,
                                 timerPortMock,
+                               dbMock,
                                dbMock
                                };
 };
