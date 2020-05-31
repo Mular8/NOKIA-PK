@@ -96,13 +96,13 @@ void UserPort::showSmsList()
     if(db.size()==0) menu.addSelectionListItem("No messages","");
     else
     {
-    for(Sms sms : smsList)
-    {
-        menu.addSelectionListItem(to_string(sms.from)+(sms.read==false?"\tNew":""),sms.message);
-    }
-    gui.setAcceptCallback([&](){
-        showSms(menu.getCurrentItemIndex().second);
-    });
+        for(Sms sms : smsList)
+        {
+            menu.addSelectionListItem(to_string(sms.from)+(sms.read==false?"\tNew":""),sms.message);
+        }
+        gui.setAcceptCallback([&](){
+            showSms(menu.getCurrentItemIndex().second);
+        });
     }
     setCurrentMode(View::SmsList,&menu);
 }
