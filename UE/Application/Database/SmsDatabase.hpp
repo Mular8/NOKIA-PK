@@ -8,6 +8,7 @@ namespace ue
 class SmsDatabase : public ISmsDatabase
 {
     std::vector<Sms> obiekty;
+
 public:
     SmsDatabase();
     SmsDatabase(std::vector<Sms>);

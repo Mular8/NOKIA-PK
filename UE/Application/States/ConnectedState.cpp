@@ -5,6 +5,10 @@ namespace ue
 void ConnectedState::handleSendSms(common::PhoneNumber recipient, std::string message)
 {
     context.bts.sendSms(recipient, message);
+    Sms sentSms(recipient, message);
+    sentSms.read=true;
+    context.db_w.insert(sentSms);
+
 }
 ConnectedState::ConnectedState(Context &context)
     : BaseState(context, "ConnectedState")

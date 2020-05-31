@@ -20,7 +20,7 @@ public:
                 IUserPort& user,
                 ITimerPort& timer,
                 ISmsDatabase& db
-                );
+                , ISmsDatabase& db_w);
     ~Application();
     void handleSendSms(common::PhoneNumber from, std::string message) override;
     // ITimerEventsHandler interface
