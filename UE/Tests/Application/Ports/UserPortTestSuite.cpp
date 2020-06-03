@@ -6,7 +6,7 @@
 #include "Mocks/IUserPortMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include "Mocks/IUeGuiMock.hpp"
-
+#include "Mocks/ISmsDatabaseMock.hpp"
 namespace ue
 {
 using namespace ::testing;
@@ -20,10 +20,11 @@ protected:
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
     StrictMock<ISmsComposeModeMock> smsComposeModeMock;
+    StrictMock<ISmsDatabaseMock> databaseMock;
     IUeGui::Callback rejectCallback;
     IUeGui::Callback acceptCallback;
 
-    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER};
+    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, databaseMock};
 
     UserPortTestSuite()
     {
@@ -111,7 +112,20 @@ TEST_F(UserPortTestSuite, shallExitSmsCreationOnReject)
 TEST_F(UserPortTestSuite, shallShowReceivedSmsInformation)
 {
     EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
-    objectUnderTest.showReceivedSms();
+    objectUnderTest.showNewSms();
+}
+
+TEST_F(UserPortTestSuite, shallEncryptCorrectly)
+{
+std::string cos="aaa";
+EXPECT_EQ("ddd",objectUnderTest.encrypted(cos));
+}
+
+TEST_F(UserPortTestSuite, shallDecryptCorrectly)
+{
+std::string cos="ddd";
+EXPECT_EQ("aaa",objectUnderTest.decrypted(cos));
 }
 
 }
+

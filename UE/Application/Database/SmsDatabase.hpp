@@ -10,12 +10,12 @@ class SmsDatabase : public ISmsDatabase
     std::vector<Sms> obiekty;
 public:
     SmsDatabase();
+    SmsDatabase(std::vector<Sms>);
     Sms* get(int id) override;
     std::vector<Sms> getAll() override;
-    void update(Sms sms, int id) override;
     void remove(int id) override;
     void removeAll() override;
     void insert(Sms sms) override;
-    size_t size();
+    long size() override;
 };
 }
