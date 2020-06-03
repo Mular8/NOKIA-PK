@@ -1,7 +1,7 @@
 #pragma once
 #include <gmock/gmock.h>
-#include "Database/ISmsDatabase.hpp"
-#include <Sms/Sms.hpp>
+#include "Ports/ISmsDatabasePort.hpp"
+#include "SmsForDatabase/Sms.hpp"
 namespace ue
 {
 

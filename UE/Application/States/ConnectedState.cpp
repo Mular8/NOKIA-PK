@@ -1,5 +1,5 @@
 #include "ConnectedState.hpp"
-#include "Sms/Sms.hpp"
+#include "SmsForDatabase/Sms.hpp"
 namespace ue
 {
 void ConnectedState::handleSendSms(common::PhoneNumber recipient, std::string message)
