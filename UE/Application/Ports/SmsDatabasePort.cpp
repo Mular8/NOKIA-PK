@@ -1,5 +1,5 @@
-#include "Database/SmsDatabase.hpp"
-#include "Sms/Sms.hpp"
+#include "SmsDatabasePort.hpp"
+#include "SmsForDatabase/Sms.hpp"
 #include <memory>
 namespace ue
 {
@@ -13,7 +13,7 @@ Sms* SmsDatabase::get(int id)
     }
     catch (const std::out_of_range& oor)
     {
-        return &obiekty.at(obiekty.size()-1);
+        throw(oor);
     }
 
 }

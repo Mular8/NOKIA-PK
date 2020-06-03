@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "Sms/Sms.hpp"
-#include "ISmsDatabase.hpp"
+#include "SmsForDatabase/Sms.hpp"
+#include "ISmsDatabasePort.hpp"
 namespace ue
 {
 class SmsDatabase : public ISmsDatabase

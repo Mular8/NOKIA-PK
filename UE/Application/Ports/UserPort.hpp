@@ -4,7 +4,7 @@
 #include "Logger/PrefixedLogger.hpp"
 #include "IUeGui.hpp"
 #include "Messages/PhoneNumber.hpp"
-#include "Database/ISmsDatabase.hpp"
+#include "ISmsDatabasePort.hpp"
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/ISmsComposeMode.hpp"
 

@@ -1,5 +1,5 @@
 #include "UserPort.hpp"
-#include "Database/ISmsDatabase.hpp"
+#include "SmsDatabasePort.hpp"
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/ITextMode.hpp"
 #include "UeGui/ICallMode.hpp"
@@ -23,6 +23,7 @@ void UserPort::start(IUserEventsHandler &handler)
     gui.setTitle("Nokia " + to_string(phoneNumber));
     gui.setRejectCallback([this]() { handleRejectClicked(); });
     gui.setAcceptCallback([this]() { handleAcceptClicked(); });
+    logger.logDebug("UserPort started");
 }
 
 void UserPort::stop()
@@ -100,13 +101,13 @@ void UserPort::showSmsList()
     if(db.size()==0) menu.addSelectionListItem("No messages","");
     else
     {
-    for(Sms sms : smsList)
-    {
-        menu.addSelectionListItem(to_string(sms.from)+(sms.read==false?"\tNew":""),sms.message);
-    }
-    gui.setAcceptCallback([&](){
-        showSms(menu.getCurrentItemIndex().second);
-    });
+        for(Sms sms : smsList)
+        {
+            menu.addSelectionListItem(to_string(sms.from)+(sms.read==false?"\tNew":""),sms.message);
+        }
+        gui.setAcceptCallback([&](){
+            showSms(menu.getCurrentItemIndex().second);
+        });
     }
     setCurrentMode(View::SmsList,&menu);
 }

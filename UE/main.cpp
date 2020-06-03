@@ -3,7 +3,7 @@
 #include "Ports/BtsPort.hpp"
 #include "Ports/UserPort.hpp"
 #include "Ports/TimerPort.hpp"
-#include "Database/SmsDatabase.hpp"
+#include "Ports/SmsDatabasePort.hpp"
 int main(int argc, char* argv[])
 {
     using namespace ue;
