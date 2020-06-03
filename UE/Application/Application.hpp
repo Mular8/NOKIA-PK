@@ -23,6 +23,10 @@ public:
                 , ISmsDatabase& db_w);
     ~Application();
     void handleSendSms(common::PhoneNumber from, std::string message) override;
+    void handleSendCallAccept(common::PhoneNumber from) override;
+    void handleSendCallRequest(common::PhoneNumber from) override;
+    void handleSendCallDropped(common::PhoneNumber from) override;
+
     // ITimerEventsHandler interface
     void handleTimeout() override;
 
@@ -35,6 +39,8 @@ public:
     void handleReceivedCallRequest(common::PhoneNumber PhoneNumber) override;
     void handleReceivedCallAccepted(common::PhoneNumber PhoneNumber) override;
     void handleReceivedCallDropped(common::PhoneNumber PhoneNumber) override;
+    void handleSendCallDrop(common::PhoneNumber) override;
+    virtual void handlePeerNotConnected(common::PhoneNumber) override;
 
 private:
     Context context;

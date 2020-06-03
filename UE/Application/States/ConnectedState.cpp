@@ -1,5 +1,6 @@
 #include "ConnectedState.hpp"
 #include "SmsForDatabase/Sms.hpp"
+#include "TalkingState.hpp"
 namespace ue
 {
 void ConnectedState::handleSendSms(common::PhoneNumber recipient, std::string message)
@@ -34,5 +35,40 @@ void ConnectedState::handleReceivedCallDropped(common::PhoneNumber recipient)
 void ConnectedState::handleReceivedCallRequest(common::PhoneNumber recipient)
 {
     context.logger.logDebug("Received Call request from ", recipient);
+}
+void ConnectedState::handleSendCallRequest(common::PhoneNumber from)
+{
+    using namespace std::chrono_literals;
+    context.bts.sendCallRequest(from);
+    context.timer.startTimer(30s);
+}
+void ConnectedState::handleTimeout()
+{
+    context.logger.logDebug("Timeout ");
+    context.user.callTimeout();
+}
+
+void ConnectedState::handleSendCallDrop(common::PhoneNumber from)
+{
+    context.logger.logDebug("Send Call Drop", from);
+    context.timer.stopTimer();
+    context.bts.sendCallDropped(from);
+}
+void ConnectedState::handlePeerNotConnected(common::PhoneNumber from)
+{
+    context.logger.logDebug("Recieved Unknown Recipient after CallRequest");
+    context.timer.stopTimer();
+    context.user.showPeerNotConnected(from);
+}
+void ConnectedState::handleSendCallAccept(common::PhoneNumber from)
+{
+    context.bts.sendCallAccept(from);
+    context.setState<TalkingState>(from);
+}
+
+void ConnectedState::handleSendCallDropped(common::PhoneNumber from)
+{
+    context.user.showConnected();
+    context.bts.sendCallDropped(from);
 }
 }

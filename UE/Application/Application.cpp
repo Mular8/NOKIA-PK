@@ -74,6 +74,28 @@ void Application::handleReceivedCallDropped(common::PhoneNumber phoneNumber)
 {
     context.state->handleReceivedCallDropped(phoneNumber);
 }
+void Application::handleSendCallRequest(common::PhoneNumber from)
+{
+    context.state->handleSendCallRequest(from);
+}
+void Application::handleSendCallAccept(common::PhoneNumber from)
+{
+    context.state->handleSendCallAccept(from);
+}
+
+void Application::handleSendCallDropped(common::PhoneNumber from)
+{
+    context.state->handleSendCallDropped(from);
+}
+void Application::handleSendCallDrop(common::PhoneNumber from)
+{
+    context.state->handleSendCallDrop(from);
+}
+void Application::handlePeerNotConnected(common::PhoneNumber from)
+{
+    context.state->handlePeerNotConnected(from);
+
+}
 }
 
 

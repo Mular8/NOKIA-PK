@@ -8,8 +8,9 @@ namespace ue
 class TalkingState : public BaseState
 {
 public:
-    TalkingState(Context& context);
-    void handleSib(common::BtsId btsId) override;
+    TalkingState(Context& context, common::PhoneNumber from);
+private:
+    common::PhoneNumber from;
 };
 
 }

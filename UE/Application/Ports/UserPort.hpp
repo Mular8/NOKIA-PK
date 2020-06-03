@@ -18,15 +18,22 @@ enum class View {
     SmsSent,
     SmsReceived,
     SmsView,
-    SentSmsView
+    SentSmsView,
+    NewCall,
+    Call,
+    IncCall,
+    OutCall
 };
 
 class UserPort : public IUserPort
 {
 public:
     UserPort(common::ILogger& logger, IUeGui& gui, common::PhoneNumber phoneNumber, ISmsDatabase& db, ISmsDatabase& db_w);
+    constexpr static unsigned NewCallItem = 2;
     constexpr static unsigned ListSmsItem = 1;
     constexpr static unsigned NewSmsItem = 0;
+    void setCurrentRecipent(common::PhoneNumber from);
+    common::PhoneNumber getCurrentRecipent();
     std::pair<View, IUeGui::BaseMode*> getCurrentMode() { return std::pair(view, currentMode); };
     void setCurrentMode(View curView, IUeGui::BaseMode* mode) { view = curView; currentMode = mode; };
     void start(IUserEventsHandler& handler);
@@ -44,6 +51,13 @@ public:
     void showSentSMS(int id) override;
     std::string encrypted(std::string sms) override;
     std::string decrypted(std::string sms) override;
+    void showNotAvailable(common::PhoneNumber) override;
+    void showPeerNotConnected(common::PhoneNumber) override;
+    void showPeerConnected(common::PhoneNumber) override;
+    void showCallRequest(common::PhoneNumber) override;
+    void showPeerUserDisconnected() override;
+    void showCallDropped(common::PhoneNumber) override;
+    void callTimeout() override;
 private:
     IUeGui& gui;
     IUserEventsHandler* handler = nullptr;
@@ -51,6 +65,7 @@ private:
     IUeGui::BaseMode* currentMode;
     common::PrefixedLogger logger;
     common::PhoneNumber phoneNumber;
+    common::PhoneNumber fromPhoneNumber;
     void handleHomeClicked();
     void handleAcceptClicked();
     void handleRejectClicked();
