@@ -103,4 +103,47 @@ void UserPort::showReceivedSms()
 {
     gui.showNewSms();
 }
+<<<<<<< Updated upstream
+=======
+void UserPort::showCallDropped(common::PhoneNumber from)
+{
+    auto mode = (IUeGui::ICallMode *)currentMode;
+    mode->appendIncomingText("Drop call");
+    showConnected();
+}
+void UserPort::showNotAvailable(common::PhoneNumber from)
+{
+    gui.showPeerUserNotAvailable(from);
+}
+
+void UserPort::showPeerNotConnected(common::PhoneNumber from)
+{
+    auto mode = (IUeGui::ICallMode *)currentMode;
+    mode->appendIncomingText(to_string(from)+" is not available");
+    showConnected();
+}
+
+void UserPort::showPeerConnected(common::PhoneNumber from)
+{
+    auto mode = (IUeGui::ICallMode *)currentMode;
+    mode->appendIncomingText("Connected to "+to_string(from));
+}
+void UserPort::showCallRequest(common::PhoneNumber from)
+{
+    fromPhoneNumber = from;
+    setCurrentMode(View::InCall, &gui.setCallMode());
+    auto info = (IUeGui::ICallMode*) currentMode;
+    info->appendIncomingText("From " + to_string(from));
+}
+void UserPort::showPeerUserDisconnected()
+{
+    auto info = (IUeGui::ICallMode*) currentMode;
+    info->appendIncomingText("Recipient unknown");
+}
+void UserPort::callTimeout()
+{
+    handler->handleSendCallDrop(fromPhoneNumber);
+    showConnected();
+}
+>>>>>>> Stashed changes
 }

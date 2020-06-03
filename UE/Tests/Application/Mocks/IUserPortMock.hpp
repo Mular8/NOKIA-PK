@@ -12,6 +12,10 @@ public:
     IUserEventsHandlerMock();
     ~IUserEventsHandlerMock() override;
     MOCK_METHOD(void, handleSendSms, (common::PhoneNumber, std::string), (final));
+    MOCK_METHOD(void, handleSendCallRequest, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleSendCallAccept, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleSendCallDrop, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleSendCallDropped, (common::PhoneNumber), (final));
 
 };
 
@@ -24,7 +28,25 @@ public:
     MOCK_METHOD(void, showNotConnected, (), (final));
     MOCK_METHOD(void, showConnecting, (), (final));
     MOCK_METHOD(void, showConnected, (), (final));
+<<<<<<< Updated upstream
     MOCK_METHOD(void, showReceivedSms, (), (final));
+=======
+    MOCK_METHOD(void, showNewSms, (), (final));
+    MOCK_METHOD(void, showSmsList, (), (final));
+    MOCK_METHOD(void, showMenu, (), (final));
+    MOCK_METHOD(void, showSms, (int),(final));
+    MOCK_METHOD(void, showComposeSmsMode,(),(final));
+    MOCK_METHOD(void, showSmsReceived,(),(final));
+    MOCK_METHOD(void, showSentSMSList,(),(final));
+    MOCK_METHOD(void, showSentSMS,(int),(final));
+    MOCK_METHOD(void, showPeerNotConnected, (common::PhoneNumber),(final));
+    MOCK_METHOD(void, showPeerConnected, (common::PhoneNumber),(final));
+    MOCK_METHOD(void, showPeerUserDisconnected, (), (final));
+    MOCK_METHOD(void, showNotAvailable, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, showCallDropped, (common::PhoneNumber),(final));
+    MOCK_METHOD(void, showCallRequest, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, callTimeout, (),(final));
+>>>>>>> Stashed changes
 };
 
 }

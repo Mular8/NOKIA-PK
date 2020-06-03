@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< Updated upstream
-<!-- Written by QtCreator 4.11.1, 2020-05-14T09:49:34. -->
-=======
-<!-- Written by QtCreator 4.12.1, 2020-06-03T15:54:54. -->
->>>>>>> Stashed changes
+<!-- Written by QtCreator 4.11.1, 2020-06-03T12:48:29. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{dd0f7e21-77eb-47c8-9e0c-c726db2fd1c5}</value>
+  <value type="QByteArray">{94605152-fc2a-4854-b3d0-5033045246a6}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -63,24 +59,14 @@
     <value type="QString">-fno-delayed-template-parsing</value>
    </valuelist>
    <value type="bool" key="ClangCodeModel.UseGlobalConfig">true</value>
-   <value type="QString" key="ClangCodeModel.WarningConfigId">Builtin.Questionable</value>
-   <valuemap type="QVariantMap" key="ClangTools">
-    <value type="bool" key="ClangTools.BuildBeforeAnalysis">true</value>
-    <value type="QString" key="ClangTools.DiagnosticConfig">Builtin.DefaultTidyAndClazy</value>
-    <value type="int" key="ClangTools.ParallelJobs">2</value>
-    <valuelist type="QVariantList" key="ClangTools.SelectedDirs"/>
-    <valuelist type="QVariantList" key="ClangTools.SelectedFiles"/>
-    <valuelist type="QVariantList" key="ClangTools.SuppressedDiagnostics"/>
-    <value type="bool" key="ClangTools.UseGlobalSettings">true</value>
-   </valuemap>
   </valuemap>
  </data>
  <data>
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.14.2 MinGW 64-bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.14.2 MinGW 64-bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.5142.win64_mingw73_kit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.14.1 MinGW 64-bit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.14.1 MinGW 64-bit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.5141.win64_mingw73_kit</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -92,8 +78,7 @@
      <value type="QString">CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}</value>
      <value type="QString">QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}</value>
     </valuelist>
-    <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\N\build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
@@ -136,8 +121,7 @@
      <value type="QString">CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}</value>
      <value type="QString">QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}</value>
     </valuelist>
-    <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\N\build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
@@ -180,8 +164,7 @@
      <value type="QString">CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}</value>
      <value type="QString">QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}</value>
     </valuelist>
-    <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\N\build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-RelWithDebInfo</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-RelWithDebInfo</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
@@ -224,8 +207,7 @@
      <value type="QString">CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}</value>
      <value type="QString">QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}</value>
     </valuelist>
-    <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\N\build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-MinSizeRel</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-MinSizeRel</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.AdditionalArguments"></value>
@@ -269,8 +251,6 @@
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Deploy</value>
     </valuemap>
     <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">1</value>
-    <valuemap type="QVariantMap" key="ProjectExplorer.DeployConfiguration.CustomData"/>
-    <value type="bool" key="ProjectExplorer.DeployConfiguration.CustomDataEnabled">false</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.DefaultDeployConfiguration</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.DeployConfigurationCount">1</value>
@@ -348,7 +328,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/N/build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/BTS</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/BTS</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.1">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -423,7 +403,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/N/build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/BTS/Tests/Application</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/BTS/Tests/Application</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.2">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -498,7 +478,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/N/build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/COMMON/Tests</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/COMMON/Tests</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.3">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -573,7 +553,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/N/build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/UE</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/UE</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.4">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
@@ -648,15 +628,10 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/N/build-NOKIA-PK-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/UE/Tests/Application</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/Patryk/Documents/build-NOKIA-PK-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/UE/Tests/Application</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">5</value>
   </valuemap>
- </data>
- <data>
-<<<<<<< Updated upstream
-  <variable>ProjectExplorer.Project.TargetCount</variable>
-  <value type="int">1</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.Target.1</variable>
@@ -868,10 +843,8 @@
   </valuemap>
  </data>
  <data>
-=======
->>>>>>> Stashed changes
   <variable>ProjectExplorer.Project.TargetCount</variable>
-  <value type="int">1</value>
+  <value type="int">2</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.Updater.FileVersion</variable>

@@ -23,6 +23,9 @@ public:
                 );
     ~Application();
     void handleSendSms(common::PhoneNumber from, std::string message) override;
+    void handleSendCallRequest(common::PhoneNumber recipient) override;
+    void handleSendCallAccept(common::PhoneNumber recipent) override;
+    void handleSendCallDropped(common::PhoneNumber recipent) override;
     // ITimerEventsHandler interface
     void handleTimeout() override;
 
@@ -32,6 +35,14 @@ public:
     void handleAttachAccept() override;
     void handleAttachReject() override;
     void handleSmsReceived(common::PhoneNumber PhoneNumber, std::string msg) override;
+<<<<<<< Updated upstream
+=======
+    void handleReceivedCallRequest(common::PhoneNumber PhoneNumber) override;
+    void handleReceivedCallAccepted(common::PhoneNumber PhoneNumber) override;
+    void handleReceivedCallDropped(common::PhoneNumber PhoneNumber) override;
+    void handleSendCallDrop(common::PhoneNumber) override;
+    virtual void handlePeerNotConnected(common::PhoneNumber) override;
+>>>>>>> Stashed changes
 
 private:
     Context context;

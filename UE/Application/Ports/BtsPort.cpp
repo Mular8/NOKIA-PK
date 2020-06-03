@@ -94,8 +94,26 @@ void BtsPort::sendAttachRequest(common::BtsId btsId)
                                 common::PhoneNumber{}};
     msg.writeBtsId(btsId);
     transport.sendMessage(msg.getMessage());
-
-
 }
-
+void BtsPort::sendCallRequest(common::PhoneNumber from)
+{
+    logger.logDebug("sendCallReuest: ", from);
+    common::OutgoingMessage msg{common::MessageId::CallRequest,phoneNumber,from};
+    transport.sendMessage(msg.getMessage());
+}
+void BtsPort::sendCallAccept(common::PhoneNumber from)
+{
+    logger.logDebug("sendCallAccept: ", from);
+    common::OutgoingMessage msg{common::MessageId::CallAccepted, phoneNumber,from};
+    transport.sendMessage(msg.getMessage());
+}
+void BtsPort::sendCallDropped(common::PhoneNumber from)
+{
+    logger.logDebug("sendCallDrop: ", from);
+    common::OutgoingMessage msg{};
+    msg.writeMessageId(common::MessageId::CallDropped);
+    msg.writePhoneNumber(phoneNumber);
+    msg.writePhoneNumber(from);
+    transport.sendMessage(msg.getMessage());
+}
 }

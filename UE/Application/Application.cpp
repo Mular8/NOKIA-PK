@@ -56,6 +56,43 @@ void Application::handleSmsReceived(common::PhoneNumber from, std::string messag
     context.state->handleSmsReceived(from, message);
 }
 
+<<<<<<< Updated upstream
+=======
+void Application::handleReceivedCallRequest(common::PhoneNumber phoneNumber)
+{
+    context.state->handleReceivedCallRequest(phoneNumber);
+}
+
+void Application::handleReceivedCallAccepted(common::PhoneNumber phoneNumber)
+{
+    context.state->handleReceivedCallAccepted(phoneNumber);
+}
+
+void Application::handleReceivedCallDropped(common::PhoneNumber phoneNumber)
+{
+    context.state->handleReceivedCallDropped(phoneNumber);
+}
+void Application::handleSendCallRequest(common::PhoneNumber from)
+{
+    context.state->handleSendCallRequest(from);
+}
+void Application::handleSendCallDrop(common::PhoneNumber from)
+{
+    context.state->handleSendCallDrop(from);
+}
+void Application::handleSendCallAccept(common::PhoneNumber from)
+{
+    context.state->handleSendCallAccept(from);
+}
+void Application::handleSendCallDropped(common::PhoneNumber from)
+{
+    context.state->handleSendCallDropped(from);
+}
+void Application::handlePeerNotConnected(common::PhoneNumber from)
+{
+    context.state->handlePeerNotConnected(from);
+}
+>>>>>>> Stashed changes
 }
 
 
