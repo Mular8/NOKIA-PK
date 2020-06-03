@@ -216,5 +216,59 @@ std::string UserPort::decrypted(std::string sms)
     return sms;
 
 }
+void UserPort::showCallRequest(common::PhoneNumber from)
+{
+    setCurrentRecipent(from);
+    setCurrentMode(View::IncCall, &gui.setCallMode());
+    auto info = (IUeGui::ICallMode*) currentMode;
+    info->appendIncomingText("Incomig from " + to_string(from));
+}
 
+void UserPort::showPeerUserDisconnected()
+{
+    auto info = (IUeGui::ICallMode*) currentMode;
+    info->appendIncomingText("Unknown recipient");
+}
+
+void UserPort::showNotAvailable(common::PhoneNumber from)
+{
+    gui.showPeerUserNotAvailable(from);
+}
+
+void UserPort::showPeerNotConnected(common::PhoneNumber from)
+{
+    auto mode = (IUeGui::ICallMode *)currentMode;
+    mode->appendIncomingText(to_string(from)+" is not available");
+    showConnected();
+}
+
+void UserPort::showPeerConnected(common::PhoneNumber from)
+{
+    auto mode = (IUeGui::ICallMode *)currentMode;
+    mode->appendIncomingText("Connected to "+to_string(from));
+    setCurrentMode(View::Call, mode);
+}
+
+void UserPort::showCallDropped(common::PhoneNumber from)
+{
+    auto mode = (IUeGui::ICallMode *)currentMode;
+    mode->appendIncomingText("Drop call");
+    showConnected();
+}
+
+void UserPort::callTimeout()
+{
+    handler->handleSendCallDrop(fromPhoneNumber);
+    showConnected();
+}
+
+void UserPort::setCurrentRecipent(common::PhoneNumber from)
+{
+    fromPhoneNumber = from;
+}
+
+common::PhoneNumber UserPort::getCurrentRecipent()
+{
+    return fromPhoneNumber;
+}
 }
