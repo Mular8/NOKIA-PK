@@ -32,6 +32,8 @@ public:
     MOCK_METHOD(void, showSmsReceived,(),(final));
     MOCK_METHOD(void, showSentSMSList,(),(final));
     MOCK_METHOD(void, showSentSMS,(int),(final));
+    MOCK_METHOD(std::string, encrypted,(std::string),(final));
+    MOCK_METHOD(std::string, decrypted,(std::string),(final));
 };
 
 }

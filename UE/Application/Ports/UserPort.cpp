@@ -116,7 +116,7 @@ void UserPort::showSms(int id)
 {
     IUeGui::ITextMode& menu = gui.setViewTextMode();
     Sms* sms = db.get(id);
-    std::string text="From: "+to_string(sms->from)+"\n\n"+sms->message;
+    std::string text="From: "+to_string(sms->from)+"\n\n"+decrypted(sms->message);
     menu.setText(text);
     sms->read=true;
     bool allRead=true;
@@ -156,7 +156,7 @@ void UserPort::showComposeSmsMode()
      composeMode.clearSmsText();
      setCurrentMode(View::NewSms, &composeMode);
      gui.setAcceptCallback([&](){
-         handler->handleSendSms(composeMode.getPhoneNumber(),composeMode.getSmsText());
+         handler->handleSendSms(composeMode.getPhoneNumber(),encrypted(composeMode.getSmsText()));
          composeMode.clearSmsText();
          showMenu();
      });
@@ -193,6 +193,28 @@ void UserPort::showSentSMS(int id)
         if(sms.read==false){allRead=false;break;}
     if(allRead==true)showSmsReceived();
     setCurrentMode(View::SentSmsView, &menu);
+}
+
+std::string UserPort::encrypted(std::string sms)
+{
+
+
+    for(int i = 0; i < sms.length(); ++i){
+        sms[i] = sms[i] + 3;
+    }
+    return sms;
+
+}
+
+std::string UserPort::decrypted(std::string sms)
+{
+
+
+    for(int i = 0; i < sms.length(); ++i){
+        sms[i] = sms[i] - 3;
+    }
+    return sms;
+
 }
 
 }

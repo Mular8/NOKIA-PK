@@ -42,6 +42,8 @@ public:
     void showComposeSmsMode() override;
     void showSentSMSList() override;
     void showSentSMS(int id) override;
+    std::string encrypted(std::string sms) override;
+    std::string decrypted(std::string sms) override;
 private:
     IUeGui& gui;
     IUserEventsHandler* handler = nullptr;

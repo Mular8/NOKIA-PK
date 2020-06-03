@@ -29,6 +29,8 @@ public:
     virtual void showSmsReceived() = 0;
     virtual void showSentSMSList() = 0;
     virtual void showSentSMS(int id) = 0;
+    virtual std::string encrypted(std::string sms) = 0;
+    virtual std::string decrypted(std::string sms) = 0;
 };
 
 }

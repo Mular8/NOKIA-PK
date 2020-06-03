@@ -110,4 +110,17 @@ TEST_F(UserPortTestSuite, shallshowNewSmsCorrectly)
     EXPECT_CALL(guiMock, showNewSms());
     objectUnderTest.showNewSms();
 }
+
+TEST_F(UserPortTestSuite, shallEncryptCorrectly)
+{
+std::string cos="aaa";
+EXPECT_EQ("ddd",objectUnderTest.encrypted(cos));
+}
+
+TEST_F(UserPortTestSuite, shallDecryptCorrectly)
+{
+std::string cos="ddd";
+EXPECT_EQ("aaa",objectUnderTest.decrypted(cos));
+}
+
 }
