@@ -23,6 +23,7 @@ void UserPort::start(IUserEventsHandler &handler)
     this->handler = &handler;
     gui.setTitle("Nokia " + to_string(phoneNumber));
     logger.logDebug("UserPort started");
+    gui.setHomeCallback([this](){handleHomeClicked();});
 }
 
 void UserPort::stop()
@@ -30,12 +31,13 @@ void UserPort::stop()
     handler = nullptr;
     gui.setRejectCallback(nullptr);
     gui.setAcceptCallback(nullptr);
+    gui.setHomeCallback(nullptr);
 
 }
 
 void UserPort::handleHomeClicked()
 {
-
+    showMenu();
 }
 
 void UserPort::showNotConnected()
