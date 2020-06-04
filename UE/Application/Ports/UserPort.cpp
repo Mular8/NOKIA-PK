@@ -24,6 +24,7 @@ void UserPort::start(IUserEventsHandler &handler)
     gui.setTitle("Nokia " + to_string(phoneNumber));
     gui.setRejectCallback([this]() { handleRejectClicked(); });
     gui.setAcceptCallback([this]() { handleAcceptClicked(); });
+    gui.setHomeCallback([this]() { handleHomeClicked(); });
     logger.logDebug("UserPort started");
 }
 
@@ -32,7 +33,7 @@ void UserPort::stop()
     handler = nullptr;
     gui.setRejectCallback(nullptr);
     gui.setAcceptCallback(nullptr);
-
+    gui.setHomeCallback(nullptr);
 }
 
 void UserPort::handleAcceptClicked()
@@ -41,6 +42,7 @@ void UserPort::handleAcceptClicked()
 
 void UserPort::handleRejectClicked()
 {
+
     switch(view) {
     case View::HomeMenu:
         break;
@@ -62,6 +64,8 @@ void UserPort::handleRejectClicked()
 
 void UserPort::handleHomeClicked()
 {
+
+    showMenu();
 
 }
 
@@ -194,6 +198,7 @@ void UserPort::showMenu()
                 break;
             case 3:
                 showStartDialView();
+
         }
     });
 
