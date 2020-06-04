@@ -44,7 +44,6 @@ public:
     virtual void showNotAvailable(common::PhoneNumber) = 0;
     virtual void showPeerNotConnected(common::PhoneNumber) = 0;
     virtual void callTimeout() = 0;
-    virtual void showCallRequestView(common::PhoneNumber number) = 0;
     virtual void showStartDialView() = 0;
     virtual void showCallView(const std::string incomingText) = 0;
     virtual void showDialingView(common::PhoneNumber) = 0;

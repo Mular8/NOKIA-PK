@@ -109,17 +109,6 @@ void UserPort::showSms(int id)
     });
 }
 
-void UserPort::showCallRequestView(common::PhoneNumber number){
-    IUeGui::ITextMode& newCallView = gui.setAlertMode();
-    newCallView.setText("Incoming call from number:\n" + std::to_string(number.value));
-    gui.setAcceptCallback([&]{
-        handler->handleSendCallAccept(number);
-    });
-    gui.setRejectCallback([&]{
-        handler->handleSendCallDropped(number);
-    });
-}
-
 void UserPort::showStartDialView(){
     IUeGui::IDialMode& callView = gui.setDialMode();
     gui.setAcceptCallback([&](){
@@ -249,8 +238,6 @@ std::string UserPort::encrypted(std::string sms)
 
 std::string UserPort::decrypted(std::string sms)
 {
-
-
     for(int i = 0; i < sms.length(); ++i){
         sms[i] = sms[i] - 3;
     }
@@ -259,16 +246,23 @@ std::string UserPort::decrypted(std::string sms)
 }
 void UserPort::showCallRequest(common::PhoneNumber from)
 {
+    IUeGui::ITextMode& info= gui.setViewTextMode();
     setCurrentRecipent(from);
-    setCurrentMode(View::IncCall, &gui.setCallMode());
-    auto info = (IUeGui::ICallMode*) currentMode;
-    info->appendIncomingText("Incomig from " + to_string(from));
+    setCurrentMode(View::IncCall, &info);
+    info.setText("Incoming from " + to_string(from));
+    gui.setAcceptCallback([&]{
+        fromPhoneNumber = from;
+        handler->handleSendCallAccept(phoneNumber);
+    });
+    gui.setRejectCallback([&]{
+        handler->handleSendCallDropped(phoneNumber);
+    });
 }
 
 void UserPort::showPeerUserDisconnected()
 {
-    auto info = (IUeGui::ICallMode*) currentMode;
-    info->appendIncomingText("Unknown recipient");
+    IUeGui::ICallMode& info=gui.setCallMode();
+    info.appendIncomingText("Unknown recipient");
 }
 
 void UserPort::showNotAvailable(common::PhoneNumber from)
@@ -278,22 +272,22 @@ void UserPort::showNotAvailable(common::PhoneNumber from)
 
 void UserPort::showPeerNotConnected(common::PhoneNumber from)
 {
-    auto mode = (IUeGui::ICallMode *)currentMode;
-    mode->appendIncomingText(to_string(from)+" is not available");
+    IUeGui::ICallMode& info=gui.setCallMode();
+    info.appendIncomingText(to_string(from)+" is not available");
     showConnected();
 }
 
 void UserPort::showPeerConnected(common::PhoneNumber from)
 {
-    auto mode = (IUeGui::ICallMode *)currentMode;
-    mode->appendIncomingText("Connected to "+to_string(from));
-    setCurrentMode(View::Call, mode);
+    IUeGui::ICallMode& info=gui.setCallMode();
+    info.appendIncomingText("Connected to "+to_string(from));
+    setCurrentMode(View::Call, &info);
 }
 
 void UserPort::showCallDropped(common::PhoneNumber from)
 {
-    auto mode = (IUeGui::ICallMode *)currentMode;
-    mode->appendIncomingText("Drop call");
+    IUeGui::ICallMode& info=gui.setCallMode();
+    info.appendIncomingText("Drop call");
     showConnected();
 }
 
