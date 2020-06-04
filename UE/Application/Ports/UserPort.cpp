@@ -82,7 +82,13 @@ void UserPort::showSmsList()
     {
         for(Sms sms : smsList)
         {
-            menu.addSelectionListItem(to_string(sms.from)+(sms.read==false?"\tNew":""),sms.message);
+            if(sms.read == false){
+                menu.addSelectionListItem(to_string(sms.from)+(sms.read==false?"\tNew":""),sms.message);
+            }
+            if(sms.read == true){
+                menu.addSelectionListItem(to_string(sms.from)+(sms.read==true?"\tSeen":""),sms.message);
+            }
+
         }
         gui.setAcceptCallback([&](){
             showSms(menu.getCurrentItemIndex().second);
