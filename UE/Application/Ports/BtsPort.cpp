@@ -91,6 +91,12 @@ void BtsPort::handleMessage(BinaryMessage msg)
             handler->handleReceivedCallDropped(from);
             break;
         }
+        case common::MessageId::CallTalk:
+        {
+            logger.logError("BtsPort, Call message: ", from);
+            handler->handleTalkMessage(reader.readRemainingText());
+            break;
+        }
         case common::MessageId::UnknownRecipient:
         {
             logger.logDebug("Unknown Recipient: ",from);
@@ -98,7 +104,6 @@ void BtsPort::handleMessage(BinaryMessage msg)
         }
         default:
             logger.logError("unknown message: ", msgId, ", from: ", from);
-
         }
 
     }
@@ -117,9 +122,7 @@ void BtsPort::handleDisconnected()
 void BtsPort::sendAttachRequest(common::BtsId btsId)
 {
     logger.logDebug("sendAttachRequest: ", btsId);
-    common::OutgoingMessage msg{common::MessageId::AttachRequest,
-                                phoneNumber,
-                                common::PhoneNumber{}};
+    common::OutgoingMessage msg{common::MessageId::AttachRequest, phoneNumber,common::PhoneNumber{}};
     msg.writeBtsId(btsId);
     transport.sendMessage(msg.getMessage());
 
@@ -128,25 +131,20 @@ void BtsPort::sendAttachRequest(common::BtsId btsId)
 void BtsPort::sendCallDropped(common::PhoneNumber from)
 {
     logger.logDebug("sendCallDrop: ", from);
-    common::OutgoingMessage msg{};
-    msg.writeMessageId(common::MessageId::CallDropped);
-    msg.writePhoneNumber(phoneNumber);
-    msg.writePhoneNumber(from);
+    common::OutgoingMessage msg{common::MessageId::CallDropped,phoneNumber,from};
     transport.sendMessage(msg.getMessage());
 }
 void BtsPort::sendCallAccept(common::PhoneNumber from)
 {
     logger.logDebug("sendCallAccept: ", from);
     common::OutgoingMessage msg{common::MessageId::CallAccepted,phoneNumber, from};
-
     transport.sendMessage(msg.getMessage());
 }
 
 void BtsPort::sendTalkMessage(const std::string message, const common::PhoneNumber to)
 {
     logger.logDebug("Send talk message", message, to);
-    common::OutgoingMessage msg{
-        common::MessageId::CallTalk, phoneNumber, to};
+    common::OutgoingMessage msg{common::MessageId::CallTalk, phoneNumber, to};
     msg.writeText(message);
     transport.sendMessage(msg.getMessage());
 }
