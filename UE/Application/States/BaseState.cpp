@@ -77,4 +77,20 @@ void BaseState::handleSendCallRequest(common::PhoneNumber)
 {
     logger.logError("Uexpected: handleSendCallRequest");
 }
+
+void BaseState::handleSendTalkMessage(const std::string message)
+{
+    logger.logError("Unexpected handleSendTalkMessage", message);
+}
+
+void BaseState::handleTalkMessage(const std::string message)
+{
+    logger.logError("Unexpected handle talk message", message);
+}
+
+void BaseState::handlePeerUeBecomesUnknown(){
+    logger.logError("Unexpected handlePeerUeBecomesUnknown");
+}
+
+
 }

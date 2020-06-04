@@ -7,6 +7,7 @@ namespace ue
 
 class ConnectedState : public BaseState
 {
+
 public:
     ConnectedState(Context& context);
     void handleSendSms(common::PhoneNumber recipient, std::string message) final;
@@ -20,6 +21,10 @@ public:
     void handleTimeout() final;
     void handleSendCallAccept(common::PhoneNumber recipient) final;
     void handleSendCallDropped(common::PhoneNumber recipient) final;
+    void handlePeerUeBecomesUnknown() final;
+
+private:
+    common::PhoneNumber currentlyDialedPhoneNumber;
 };
 
 }

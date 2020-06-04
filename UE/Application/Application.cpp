@@ -96,6 +96,19 @@ void Application::handlePeerNotConnected(common::PhoneNumber from)
     context.state->handlePeerNotConnected(from);
 
 }
+void Application::handleSendTalkMessage(const std::string incomingMessage){
+    context.state->handleSendTalkMessage(incomingMessage);
+}
+
+void Application::handleTalkMessage(const std::string message){
+    context.state->handleTalkMessage(message);
+}
+
+void Application::handlePeerUeBecomesUnknown(){
+    context.state->handlePeerUeBecomesUnknown();
+}
+
+
 }
 
 

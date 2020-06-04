@@ -3,6 +3,7 @@
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/ITextMode.hpp"
 #include "UeGui/ICallMode.hpp"
+#include "UeGui/IDialMode.hpp"
 
 namespace ue
 {
@@ -92,6 +93,10 @@ void UserPort::showNewSms()
     gui.showNewSms();
 }
 
+void UserPort::showPeerUeBecomesUnknown(common::PhoneNumber phoneNumber){
+    gui.showPeerUserNotAvailable(phoneNumber);
+}
+
 void UserPort::showSmsList()
 {
 
@@ -126,6 +131,47 @@ void UserPort::showSms(int id)
     setCurrentMode(View::SmsView, &menu);
 }
 
+void UserPort::showCallRequestView(common::PhoneNumber number){
+    IUeGui::ITextMode& newCallView = gui.setAlertMode();
+    newCallView.setText("Incoming call from number:\n" + std::to_string(number.value));
+    gui.setAcceptCallback([&, number]{
+        handler->handleSendCallAccept(number);
+    });
+    gui.setRejectCallback([&, number]{
+        handler->handleSendCallDropped(number);
+    });
+}
+
+void UserPort::showStartDialView(){
+    IUeGui::IDialMode& callView = gui.setDialMode();
+    gui.setAcceptCallback([&](){
+        handler->handleSendCallRequest(callView.getPhoneNumber());
+    });
+    gui.setRejectCallback([&](){
+        showMenu();
+    });
+}
+
+void UserPort::showDialingView(common::PhoneNumber to){
+    IUeGui::ITextMode& dialingView = gui.setAlertMode();
+    dialingView.setText("Calling...");
+    gui.setAcceptCallback(nullptr);
+    gui.setRejectCallback([&, to]{
+        handler->handleSendCallDropped(to);
+    });
+}
+
+void UserPort::showCallView(const std::string incomingText){
+    IUeGui::ICallMode& callView = gui.setCallMode();
+    callView.appendIncomingText(incomingText);
+    gui.setAcceptCallback([&] (){
+        handler->handleSendTalkMessage(callView.getOutgoingText());
+        callView.clearOutgoingText();
+
+    });
+    gui.setRejectCallback(nullptr);
+}
+
 void UserPort::showMenu()
 {
     IUeGui::IListViewMode& menu = gui.setListViewMode();
@@ -133,6 +179,7 @@ void UserPort::showMenu()
     menu.addSelectionListItem("View SMS", "List all new messages");
     menu.addSelectionListItem("Compose SMS", "New SMS");
     menu.addSelectionListItem("Sent SMS list", "Sent messages list");
+    menu.addSelectionListItem("Make a call", "");
     setCurrentMode(View::HomeMenu, &menu);
     gui.setAcceptCallback([&](){
         switch(menu.getCurrentItemIndex().second){
@@ -145,6 +192,8 @@ void UserPort::showMenu()
             case 2:
                 showSentSMSList();
                 break;
+            case 3:
+                showStartDialView();
         }
     });
 

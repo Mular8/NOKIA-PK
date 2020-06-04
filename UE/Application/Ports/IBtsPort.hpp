@@ -19,6 +19,8 @@ public:
     virtual void handleReceivedCallAccepted(common::PhoneNumber) = 0;
     virtual void handleReceivedCallDropped(common::PhoneNumber) = 0;
     virtual void handlePeerNotConnected(common::PhoneNumber) = 0;
+    virtual void handleTalkMessage(const std::string) = 0;
+    virtual void handlePeerUeBecomesUnknown() = 0;
 };
 
 class IBtsPort
@@ -30,6 +32,7 @@ public:
     virtual void sendCallRequest(common::PhoneNumber) = 0;
     virtual void sendCallAccept(common::PhoneNumber) = 0;
     virtual void sendCallDropped(common::PhoneNumber) = 0;
+    virtual void sendTalkMessage(const std::string, const common::PhoneNumber) = 0;
 };
 
 }

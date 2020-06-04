@@ -22,7 +22,9 @@ enum class View {
     NewCall,
     Call,
     IncCall,
-    OutCall
+    OutCall,
+    RequestCallView,
+    DialView
 };
 
 class UserPort : public IUserPort
@@ -58,6 +60,11 @@ public:
     void showPeerUserDisconnected() override;
     void showCallDropped(common::PhoneNumber) override;
     void callTimeout() override;
+    void showCallRequestView(common::PhoneNumber number) override;
+    void showStartDialView() override;
+    void showCallView(const std::string incomingText) override;
+    void showDialingView(common::PhoneNumber to) override;
+    void showPeerUeBecomesUnknown(common::PhoneNumber phoneNumber) override;
 private:
     IUeGui& gui;
     IUserEventsHandler* handler = nullptr;

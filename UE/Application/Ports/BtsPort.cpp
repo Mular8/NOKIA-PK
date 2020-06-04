@@ -142,6 +142,15 @@ void BtsPort::sendCallAccept(common::PhoneNumber from)
     transport.sendMessage(msg.getMessage());
 }
 
+void BtsPort::sendTalkMessage(const std::string message, const common::PhoneNumber to)
+{
+    logger.logDebug("Send talk message", message, to);
+    common::OutgoingMessage msg{
+        common::MessageId::CallTalk, phoneNumber, to};
+    msg.writeText(message);
+    transport.sendMessage(msg.getMessage());
+}
+
 void BtsPort::sendCallRequest(common::PhoneNumber from)
 {
     logger.logDebug("sendCallReuest: ", from);

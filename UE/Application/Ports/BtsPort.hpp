@@ -16,6 +16,7 @@ public:
     void sendCallRequest(common::PhoneNumber) override;
     void sendCallAccept(common::PhoneNumber recipient) override;
     void sendCallDropped(common::PhoneNumber recipient) override;
+    void sendTalkMessage(const std::string, const common::PhoneNumber) override;
     void start(IBtsEventsHandler& handler);
     void stop();
 

@@ -30,6 +30,9 @@ public:
     void handleReceivedCallDropped(common::PhoneNumber recipient) override;
     void handleSendCallDrop(common::PhoneNumber) override;
     void handlePeerNotConnected(common::PhoneNumber) override;
+    void handleSendTalkMessage(const std::string) override;
+    void handleTalkMessage(const std::string) override;
+    void handlePeerUeBecomesUnknown() override;
 protected:
     Context& context;
 private:

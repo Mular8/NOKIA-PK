@@ -71,4 +71,12 @@ void ConnectedState::handleSendCallDropped(common::PhoneNumber from)
     context.user.showConnected();
     context.bts.sendCallDropped(from);
 }
+
+void ConnectedState::handlePeerUeBecomesUnknown()
+{
+    context.timer.stopTimer();
+    context.user.showPeerUeBecomesUnknown(this->currentlyDialedPhoneNumber);
+    context.setState<ConnectedState>();
+}
+
 }

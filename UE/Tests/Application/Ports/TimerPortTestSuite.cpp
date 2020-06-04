@@ -34,26 +34,5 @@ TEST_F(TimerPortTestSuite, shallStart)
 {
 }
 
-TEST_F(TimerPortTestSuite, shallHandleTimeoutAfterPassedTime)
-{
-    using namespace std::chrono_literals;
-
-    auto duration = 100ms;
-    EXPECT_CALL(handlerMock, handleTimeout());
-    objectUnderTest.startTimer(duration);
-    std::this_thread::sleep_for(duration*2);
-
-}
-TEST_F(TimerPortTestSuite, shallStopTimer)
-{
-    using namespace std::chrono_literals;
-
-    auto duration = 100ms;
-    EXPECT_CALL(handlerMock, handleTimeout()).Times(0);
-    objectUnderTest.startTimer(duration);
-    objectUnderTest.stopTimer();
-    std::this_thread::sleep_for(duration*2);
-
-}
 }
 
