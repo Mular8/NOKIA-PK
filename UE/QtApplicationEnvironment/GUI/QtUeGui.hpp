@@ -43,7 +43,7 @@ public:
     void setCloseGuard(CloseGuard closeGuard) override;
     void setAcceptCallback(Callback) override;
     void setRejectCallback(Callback) override;
-
+    void setHomeCallback(Callback) override;
     void setTitle(const std::string& title) override;
     void showConnected() override;
     void showConnecting() override;

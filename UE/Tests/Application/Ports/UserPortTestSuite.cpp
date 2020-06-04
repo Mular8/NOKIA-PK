@@ -24,7 +24,7 @@ protected:
     StrictMock<ISmsDatabaseMock> databaseMock;
     IUeGui::Callback rejectCallback;
     IUeGui::Callback acceptCallback;
-
+    IUeGui::Callback homeCallback;
     UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, databaseMock, databaseMock};
 
     UserPortTestSuite()
@@ -34,14 +34,15 @@ protected:
             .WillOnce(SaveArg<0>(&rejectCallback));
         EXPECT_CALL(guiMock, setAcceptCallback(_))
             .WillOnce(SaveArg<0>(&acceptCallback));
-
+        EXPECT_CALL(guiMock, setHomeCallback(_))
+            .WillOnce(SaveArg<0>(&acceptCallback));
         objectUnderTest.start(handlerMock);
     }
     ~UserPortTestSuite()
     {
         EXPECT_CALL(guiMock, setRejectCallback(IsNull()));
         EXPECT_CALL(guiMock, setAcceptCallback(IsNull()));
-
+        EXPECT_CALL(guiMock, setHomeCallback(IsNull()));
         objectUnderTest.stop();
     }
 };
