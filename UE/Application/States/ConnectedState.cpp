@@ -27,20 +27,24 @@ void ConnectedState::handleSmsReceived(common::PhoneNumber from,
 void ConnectedState::handleReceivedCallAccepted(common::PhoneNumber recipient)
 {
     context.logger.logDebug("Received Call Accepted from ", recipient);
+    context.user.showPeerConnected(recipient);
+    context.setState<TalkingState>(recipient);
 }
 void ConnectedState::handleReceivedCallDropped(common::PhoneNumber recipient)
 {
     context.logger.logDebug("Received Call dropped from ", recipient);
+    context.user.showCallDropped(recipient);
 }
 void ConnectedState::handleReceivedCallRequest(common::PhoneNumber recipient)
 {
+    context.user.showCallRequest(recipient);
     context.logger.logDebug("Received Call request from ", recipient);
 }
 void ConnectedState::handleSendCallRequest(common::PhoneNumber from)
 {
     using namespace std::chrono_literals;
     context.bts.sendCallRequest(from);
-    context.timer.startTimer(30s);
+    //context.timer.startTimer(30s);
 }
 void ConnectedState::handleTimeout()
 {

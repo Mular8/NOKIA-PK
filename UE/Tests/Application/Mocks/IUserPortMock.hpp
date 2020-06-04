@@ -45,7 +45,6 @@ public:
     MOCK_METHOD(void, showPeerUserDisconnected, (), (final));
     MOCK_METHOD(void, showNotAvailable, (common::PhoneNumber), (final));
     MOCK_METHOD(void, showPeerNotConnected, (common::PhoneNumber),(final));
-    MOCK_METHOD(void, showCallRequestView, (common::PhoneNumber), (final));
     MOCK_METHOD(void, showStartDialView, (), (final));
     MOCK_METHOD(void, showCallView, (const std::string), (final));
     MOCK_METHOD(void, showDialingView, (common::PhoneNumber), (final));
