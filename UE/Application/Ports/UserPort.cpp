@@ -77,7 +77,11 @@ void UserPort::showSmsList()
     IUeGui::IListViewMode& menu = gui.setListViewMode();
     menu.clearSelectionList();
     std::vector<Sms> smsList=db.getAll();
-    if(db.size()==0) menu.addSelectionListItem("No messages","");
+    if(db.size()==0) {
+        menu.addSelectionListItem("No messages","");
+        gui.setAcceptCallback([&](){
+        });
+    }
     else
     {
         for(Sms sms : smsList)
@@ -91,12 +95,13 @@ void UserPort::showSmsList()
     gui.setRejectCallback([&](){
         showMenu();
     });
-    setCurrentMode(View::SmsList,&menu);
+    view=View::SmsList;
 }
 
 void UserPort::showSms(int id)
 {
     IUeGui::ITextMode& menu = gui.setViewTextMode();
+    view=View::SmsView;
     Sms* sms = db.get(id);
     std::string text="From: "+to_string(sms->from)+"\n\n"+decrypted(sms->message);
     menu.setText(text);
@@ -105,7 +110,6 @@ void UserPort::showSms(int id)
     for(Sms sms : db.getAll())
         if(sms.read==false){allRead=false;break;}
     if(allRead==true)showSmsReceived();
-    setCurrentMode(View::SmsView, &menu);
     gui.setRejectCallback([&](){
         showSmsList();
     });
@@ -113,8 +117,10 @@ void UserPort::showSms(int id)
 
 void UserPort::showStartDialView(){
     IUeGui::IDialMode& callView = gui.setDialMode();
+    view=View::Call;
     gui.setAcceptCallback([&](){
         handler->handleSendCallRequest(callView.getPhoneNumber());
+        showCallView("");
     });
     gui.setRejectCallback([&](){
         showMenu();
@@ -123,6 +129,7 @@ void UserPort::showStartDialView(){
 
 void UserPort::showDialingView(common::PhoneNumber to){
     IUeGui::ITextMode& dialingView = gui.setAlertMode();
+    view=View::InCall;
     dialingView.setText("Calling...");
     gui.setAcceptCallback(nullptr);
     gui.setRejectCallback([&]{
@@ -149,7 +156,7 @@ void UserPort::showMenu()
     menu.addSelectionListItem("Compose SMS", "New SMS");
     menu.addSelectionListItem("Sent SMS list", "Sent messages list");
     menu.addSelectionListItem("Make a call", "");
-    setCurrentMode(View::HomeMenu, &menu);
+    view=View::HomeMenu;
     gui.setAcceptCallback([&](){
         switch(menu.getCurrentItemIndex().second){
             case 0:
@@ -174,7 +181,7 @@ void UserPort::showComposeSmsMode()
 {
      IUeGui::ISmsComposeMode& composeMode = gui.setSmsComposeMode();
      composeMode.clearSmsText();
-     setCurrentMode(View::NewSms, &composeMode);
+     view=View::NewSms;
      gui.setAcceptCallback([&](){
          handler->handleSendSms(composeMode.getPhoneNumber(),encrypted(composeMode.getSmsText()));
          composeMode.clearSmsText();
@@ -207,20 +214,20 @@ void UserPort::showSentSMSList(){
     {
         showMenu();
     });
-    setCurrentMode(View::SmsList,&menu);
+    view=View::Status;
 }
 void UserPort::showSentSMS(int id)
 {
     IUeGui::ITextMode& menu = gui.setViewTextMode();
     Sms* sms = db_w.get(id);
-    std::string text="To: "+to_string(sms->from)+"\n\n"+sms->message;
+    std::string text="To: "+to_string(sms->from)+"\n\n"+decrypted(sms->message);
     menu.setText(text);
     sms->read=true;
     bool allRead=true;
     for(Sms sms : db_w.getAll())
         if(sms.read==false){allRead=false;break;}
     if(allRead==true)showSmsReceived();
-    setCurrentMode(View::SentSmsView, &menu);
+    view=View::SentSmsView;
     gui.setRejectCallback([&]()
     {
         showSentSMSList();
@@ -250,14 +257,13 @@ void UserPort::showCallRequest(common::PhoneNumber from)
 {
     IUeGui::ITextMode& info= gui.setViewTextMode();
     setCurrentRecipent(from);
-    setCurrentMode(View::IncCall, &info);
+    view=View::InCall;
     info.setText("Incoming from " + to_string(from));
     gui.setAcceptCallback([&]{
-        fromPhoneNumber = phoneNumber;
-        handler->handleSendCallAccept(phoneNumber);
+        handler->handleSendCallAccept(from);
     });
     gui.setRejectCallback([&]{
-        handler->handleSendCallDropped(phoneNumber);
+        handler->handleSendCallDropped(from);
     });
 }
 
@@ -283,7 +289,7 @@ void UserPort::showPeerConnected(common::PhoneNumber from)
 {
     IUeGui::ICallMode& info=gui.setCallMode();
     info.appendIncomingText("Connected to "+to_string(from));
-    setCurrentMode(View::Call, &info);
+    view=View::Call;
 }
 
 void UserPort::showCallDropped(common::PhoneNumber from)
