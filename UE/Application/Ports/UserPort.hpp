@@ -21,7 +21,7 @@ enum class View {
     SentSmsView,
     NewCall,
     Call,
-    IncCall,
+    InCall,
     OutCall,
     RequestCallView,
     DialView
@@ -36,8 +36,6 @@ public:
     constexpr static unsigned NewSmsItem = 0;
     void setCurrentRecipent(common::PhoneNumber from);
     common::PhoneNumber getCurrentRecipent();
-    std::pair<View, IUeGui::BaseMode*> getCurrentMode() { return std::pair(view, currentMode); };
-    void setCurrentMode(View curView, IUeGui::BaseMode* mode) { view = curView; currentMode = mode; };
     void start(IUserEventsHandler& handler);
     void stop();
     void showNotConnected() override;
