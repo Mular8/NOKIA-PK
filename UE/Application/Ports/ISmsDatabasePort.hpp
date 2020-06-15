@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "../Sms/Sms.hpp"
+#include "SmsForDatabase/Sms.hpp"
 namespace ue
 {
 class ISmsDatabase

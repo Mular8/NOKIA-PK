@@ -1,7 +1,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include "Mocks/ISmsDatabaseMock.hpp"
-#include "Database/SmsDatabase.hpp"
+#include "Ports/SmsDatabasePort.hpp"
 namespace ue
 {
 using namespace ::testing;
@@ -35,6 +35,8 @@ TEST_F(DatabasePortTestSuite, shallReturnAllObject)
     std::vector<Sms> smsList=objectUnderTest.getAll();
     EXPECT_EQ(3,smsList.size());
     EXPECT_EQ("Message1",smsList[0].message);
+    EXPECT_EQ("Message2",smsList[1].message);
+    EXPECT_EQ("Message3",smsList[2].message);
 }
 
 TEST_F(DatabasePortTestSuite, shallInsertCorrectly)

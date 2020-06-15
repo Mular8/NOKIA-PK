@@ -9,9 +9,10 @@ Application::Application(common::PhoneNumber phoneNumber,
                          IBtsPort &bts,
                          IUserPort &user,
                          ITimerPort &timer,
-                         ISmsDatabase &db
+                         ISmsDatabase &db,
+                         ISmsDatabase &db_w
                          )
-    : context{iLogger, bts, user, timer, db},
+    : context{iLogger, bts, user, timer, db, db_w},
       logger(iLogger, "[APP] ")
 {
     logger.logInfo("Started");
@@ -73,6 +74,45 @@ void Application::handleReceivedCallDropped(common::PhoneNumber phoneNumber)
 {
     context.state->handleReceivedCallDropped(phoneNumber);
 }
+void Application::handleSendCallRequest(common::PhoneNumber from)
+{
+    context.state->handleSendCallRequest(from);
+}
+void Application::handleSendCallAccept(common::PhoneNumber from)
+{
+    context.state->handleSendCallAccept(from);
+}
+
+void Application::handleSendCallDropped(common::PhoneNumber from)
+{
+    context.state->handleSendCallDropped(from);
+}
+void Application::handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever)
+{
+    context.state->handleSendCallDrop(sender, reciever);
+}
+void Application::handlePeerNotConnected(common::PhoneNumber from)
+{
+    context.state->handlePeerNotConnected(from);
+
+}
+void Application::handleSendTalkMessage(const std::string incomingMessage){
+    context.state->handleSendTalkMessage(incomingMessage);
+}
+
+void Application::handleTalkMessage(const std::string message){
+    context.state->handleTalkMessage(message);
+}
+
+void Application::handlePeerUeBecomesUnknown(){
+    context.state->handlePeerUeBecomesUnknown();
+}
+
+void Application::handleCallDrop(){
+    context.state->handleCallDrop();
+}
+
+
 }
 
 

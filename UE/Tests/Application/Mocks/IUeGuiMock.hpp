@@ -19,6 +19,7 @@ struct IUeGuiMock : public IUeGui
     MOCK_METHOD(void, setCloseGuard, (CloseGuard closeGuard), (final));
     MOCK_METHOD(void, setAcceptCallback, (Callback), (final));
     MOCK_METHOD(void, setRejectCallback, (Callback), (final));
+    MOCK_METHOD(void, setHomeCallback, (Callback), (final));
     MOCK_METHOD(void, setTitle, (const std::string &title), (final));
     MOCK_METHOD(void, showConnected, (), (final));
     MOCK_METHOD(void, showConnecting, (), (final));
@@ -76,6 +77,7 @@ public:
     MOCK_METHOD(void, appendIncomingText, (const std::string &text), (final));
     MOCK_METHOD(void, clearOutgoingText, (), (final));
     MOCK_METHOD(std::string, getOutgoingText, (), (const, final));
+    MOCK_METHOD(void, clearIncomingText, (), (final));
 };
 
 class IDialModeMock : public IUeGui::IDialMode

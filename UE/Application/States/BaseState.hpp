@@ -16,6 +16,9 @@ public:
     void handleTimeout() override;
     //IUserEventsHandler interface
     void handleSendSms(common::PhoneNumber recipient, std::string message) override;
+    void handleSendCallRequest(common::PhoneNumber) override;
+    void handleSendCallAccept(common::PhoneNumber from) override;
+    void handleSendCallDropped(common::PhoneNumber from) override;
     // IBtsEventsHandler interface
     void handleDisconnected() override;
     void handleSib(common::BtsId btsId) override;
@@ -25,6 +28,12 @@ public:
     void handleReceivedCallRequest(common::PhoneNumber recipient) override;
     void handleReceivedCallAccepted(common::PhoneNumber recipient) override;
     void handleReceivedCallDropped(common::PhoneNumber recipient) override;
+    void handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever) override;
+    void handlePeerNotConnected(common::PhoneNumber) override;
+    void handleSendTalkMessage(const std::string) override;
+    void handleTalkMessage(const std::string) override;
+    void handlePeerUeBecomesUnknown() override;
+    void handleCallDrop() override;
 protected:
     Context& context;
 private:

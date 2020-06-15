@@ -19,12 +19,13 @@ protected:
     StrictMock<IUserEventsHandlerMock> handlerMock;
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
+    StrictMock<ITextModeMock> textModeMock;
     StrictMock<ISmsComposeModeMock> smsComposeModeMock;
     StrictMock<ISmsDatabaseMock> databaseMock;
     IUeGui::Callback rejectCallback;
     IUeGui::Callback acceptCallback;
-
-    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, databaseMock};
+    IUeGui::Callback homeCallback;
+    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, databaseMock, databaseMock};
 
     UserPortTestSuite()
     {
@@ -33,14 +34,15 @@ protected:
             .WillOnce(SaveArg<0>(&rejectCallback));
         EXPECT_CALL(guiMock, setAcceptCallback(_))
             .WillOnce(SaveArg<0>(&acceptCallback));
-
+        EXPECT_CALL(guiMock, setHomeCallback(_))
+            .WillOnce(SaveArg<0>(&acceptCallback));
         objectUnderTest.start(handlerMock);
     }
     ~UserPortTestSuite()
     {
         EXPECT_CALL(guiMock, setRejectCallback(IsNull()));
         EXPECT_CALL(guiMock, setAcceptCallback(IsNull()));
-
+        EXPECT_CALL(guiMock, setHomeCallback(IsNull()));
         objectUnderTest.stop();
     }
 };
@@ -61,57 +63,52 @@ TEST_F(UserPortTestSuite, shallShowConnecting)
     objectUnderTest.showConnecting();
 }
 
-TEST_F(UserPortTestSuite, shallShowMenuOnConnected)
+TEST_F(UserPortTestSuite, shallShowMenuWorkCorrectly)
 {
     EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
     EXPECT_CALL(listViewModeMock, clearSelectionList());
     EXPECT_CALL(listViewModeMock, addSelectionListItem(_, _)).Times(AtLeast(1));
-    objectUnderTest.showConnected();
-    auto currentMode = objectUnderTest.getCurrentMode();
-    EXPECT_EQ(currentMode.first, View::HomeMenu);
-    EXPECT_EQ(currentMode.second, &listViewModeMock);
+    EXPECT_CALL(guiMock, setAcceptCallback);
+    objectUnderTest.showMenu();
 }
-TEST_F(UserPortTestSuite, shallSendSmsEventOnSmsSend)
+
+TEST_F(UserPortTestSuite, shallShowSmsListWorkCorrectly)
 {
     EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
+    EXPECT_CALL(databaseMock, getAll());
+    EXPECT_CALL(databaseMock, size());
     EXPECT_CALL(listViewModeMock, clearSelectionList());
     EXPECT_CALL(listViewModeMock, addSelectionListItem(_, _)).Times(AtLeast(1));
-    const auto number = common::PhoneNumber{123};
-    const std::string text = "bu";
-    EXPECT_CALL(smsComposeModeMock, getPhoneNumber()).WillOnce(Return(number));
-    EXPECT_CALL(smsComposeModeMock, clearSmsText());
-    EXPECT_CALL(smsComposeModeMock, getSmsText()).WillOnce(Return(text));
-    EXPECT_CALL(handlerMock, handleSendSms(number, text));
-    objectUnderTest.setCurrentMode(View::NewSms, &smsComposeModeMock);
-    acceptCallback();
-    auto currentMode = objectUnderTest.getCurrentMode();
-    EXPECT_EQ(currentMode.first, View::HomeMenu);
-    EXPECT_EQ(currentMode.second, &listViewModeMock);
+    objectUnderTest.showSmsList();
 }
-TEST_F(UserPortTestSuite, shallShowSmsComposeOnItemClick)
+
+TEST_F(UserPortTestSuite, shallShowSentSmsListWorkCorrectly)
 {
-    EXPECT_CALL(listViewModeMock, getCurrentItemIndex()).WillOnce(Return(std::pair<bool, unsigned>(true, UserPort::NewSmsItem)));
+    EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
+    EXPECT_CALL(databaseMock, getAll());
+    EXPECT_CALL(databaseMock, size());
+    EXPECT_CALL(listViewModeMock, clearSelectionList());
+    EXPECT_CALL(listViewModeMock, addSelectionListItem(_, _)).Times(AtLeast(1));
+    objectUnderTest.showSentSMSList();
+}
+
+TEST_F(UserPortTestSuite, shallShowComposeSmsModeCorrectly)
+{
     EXPECT_CALL(guiMock, setSmsComposeMode()).WillOnce(ReturnRef(smsComposeModeMock));
-    objectUnderTest.setCurrentMode(View::HomeMenu, &listViewModeMock);
-    acceptCallback();
-    auto currentMode = objectUnderTest.getCurrentMode();
-    EXPECT_EQ(currentMode.first, View::NewSms);
-    EXPECT_EQ(currentMode.second, &smsComposeModeMock);
-}
-
-TEST_F(UserPortTestSuite, shallExitSmsCreationOnReject)
-{
-    EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
-    EXPECT_CALL(listViewModeMock, clearSelectionList());
-    EXPECT_CALL(listViewModeMock, addSelectionListItem(_, _)).Times(AtLeast(1));
     EXPECT_CALL(smsComposeModeMock, clearSmsText());
-    objectUnderTest.setCurrentMode(View::NewSms, &smsComposeModeMock);
-    rejectCallback();
+    EXPECT_CALL(guiMock, setAcceptCallback);
+    objectUnderTest.showComposeSmsMode();
 }
 
-TEST_F(UserPortTestSuite, shallShowReceivedSmsInformation)
+TEST_F(UserPortTestSuite, shallShowSmsReceivedCorrectly)
 {
-    EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
+    EXPECT_CALL(guiMock, showSmsReceived());
+    objectUnderTest.showSmsReceived();
+}
+
+TEST_F(UserPortTestSuite, shallshowNewSmsCorrectly)
+{
+    EXPECT_CALL(guiMock, showNewSms());
     objectUnderTest.showNewSms();
 }
 
@@ -128,4 +125,3 @@ EXPECT_EQ("aaa",objectUnderTest.decrypted(cos));
 }
 
 }
-

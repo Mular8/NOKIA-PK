@@ -24,15 +24,12 @@ void TimerPort::start(ITimerEventsHandler &handler)
 
 void TimerPort::stop()
 {
-
-
     handler = nullptr;
     if(timerThread.joinable()){
         timerThread.detach();
     }
     clockEnd=Clock::now();
     logger.logInfo("Phone stopped working after ", std::chrono::duration_cast<std::chrono::seconds>(clockEnd-clockStart).count()," seconds");
-
 }
 
 void TimerPort::startTimer(const Duration duration)
