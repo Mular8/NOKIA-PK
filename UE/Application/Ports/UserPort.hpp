@@ -10,23 +10,6 @@
 
 namespace ue
 {
-enum class View {
-    Status,
-    HomeMenu,
-    NewSms,
-    SmsList,
-    SmsSent,
-    SmsReceived,
-    SmsView,
-    SentSmsView,
-    NewCall,
-    Call,
-    InCall,
-    OutCall,
-    RequestCallView,
-    DialView
-};
-
 class UserPort : public IUserPort
 {
 public:
@@ -34,8 +17,6 @@ public:
     constexpr static unsigned NewCallItem = 2;
     constexpr static unsigned ListSmsItem = 1;
     constexpr static unsigned NewSmsItem = 0;
-    void setCurrentRecipent(common::PhoneNumber from);
-    common::PhoneNumber getCurrentRecipent();
     void start(IUserEventsHandler& handler);
     void stop();
     void showNotConnected() override;
@@ -75,7 +56,6 @@ private:
     void handleHomeClicked();
     void handleAcceptClicked();
     void handleRejectClicked();
-    View view;
     ISmsDatabase& db;
     ISmsDatabase& db_w;
     int test=0;
