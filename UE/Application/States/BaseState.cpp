@@ -61,7 +61,7 @@ void BaseState::handlePeerNotConnected(common::PhoneNumber from)
 {
     logger.logError("Unexpected: handleUnknownRecipient after CallRequest");
 }
-void BaseState::handleSendCallDrop(common::PhoneNumber)
+void BaseState::handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever)
 {
     logger.logError("Unexpected: handleSendCallDrop");
 }
@@ -91,6 +91,14 @@ void BaseState::handleTalkMessage(const std::string message)
 void BaseState::handlePeerUeBecomesUnknown(){
     logger.logError("Unexpected handlePeerUeBecomesUnknown");
 }
+
+void BaseState::handleCallDrop(){
+    logger.logError("Unexpected handleCallDrop");
+}
+//void BaseState::handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever){
+//    logger.logError("Unexpected handle calldrop message", reciever);
+//}
+
 
 
 }

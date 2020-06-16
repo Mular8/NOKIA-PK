@@ -31,4 +31,18 @@ void TalkingState::handlePeerUeBecomesUnknown()
     context.setState<ConnectedState>();
 }
 
+void TalkingState::handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever){
+    context.timer.stopTimer();
+    context.bts.sendCallDrop(sender, reciever);
+    context.user.clearCallMessages();
+    context.setState<ConnectedState>();
+}
+
+void TalkingState::handleCallDrop(){
+    context.timer.stopTimer();
+    context.logger.logDebug("Call has been dropped");
+    context.user.clearCallMessages();
+    context.setState<ConnectedState>();
+}
+
 }

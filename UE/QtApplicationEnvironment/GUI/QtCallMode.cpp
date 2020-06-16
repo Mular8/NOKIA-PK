@@ -69,4 +69,9 @@ void QtCallMode::appendTalkTextSlot(QString text)
     incomingTextEdit.append(text);
 }
 
+void QtCallMode::clearIncomingText(){
+    incomingTextEdit.clear();
+    appendIncomingText("Incoming text");
+}
+
 }

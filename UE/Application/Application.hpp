@@ -39,11 +39,13 @@ public:
     void handleReceivedCallRequest(common::PhoneNumber PhoneNumber) override;
     void handleReceivedCallAccepted(common::PhoneNumber PhoneNumber) override;
     void handleReceivedCallDropped(common::PhoneNumber PhoneNumber) override;
-    void handleSendCallDrop(common::PhoneNumber) override;
+    void handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever) override;
     virtual void handlePeerNotConnected(common::PhoneNumber) override;
     void handleSendTalkMessage(const std::string incomingMessage) override;
     void handleTalkMessage(const std::string) override;
     void handlePeerUeBecomesUnknown() override;
+    void handleCallDrop() override;
+
 
 
 private:

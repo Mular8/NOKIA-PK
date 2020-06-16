@@ -87,8 +87,8 @@ void BtsPort::handleMessage(BinaryMessage msg)
         }
         case common::MessageId::CallDropped:
         {
-            logger.logDebug("Call dropped from: ",from);
-            handler->handleReceivedCallDropped(from);
+            logger.logError("Call dropped from: ",from);
+            handler->handleCallDrop();
             break;
         }
         case common::MessageId::CallTalk:
@@ -155,4 +155,14 @@ void BtsPort::sendCallRequest(common::PhoneNumber from)
     common::OutgoingMessage msg{common::MessageId::CallRequest,phoneNumber,from};
     transport.sendMessage(msg.getMessage());
 }
+
+void BtsPort::sendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever){
+    logger.logDebug("Sending calling dropped", reciever);
+    common::OutgoingMessage msg{
+        common::MessageId::CallDropped, phoneNumber, reciever
+    };
+    transport.sendMessage(msg.getMessage());
+
+}
+
 }

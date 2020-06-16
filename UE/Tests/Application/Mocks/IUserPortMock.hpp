@@ -15,7 +15,7 @@ public:
     MOCK_METHOD(void, handleSendCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleSendCallAccept, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleSendCallDropped, (common::PhoneNumber), (final));
-    MOCK_METHOD(void, handleSendCallDrop, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleSendCallDrop, (common::PhoneNumber,common::PhoneNumber), (final));
     MOCK_METHOD(void, handleSendTalkMessage, (const std::string), (final));
 };
 
@@ -41,6 +41,7 @@ public:
     MOCK_METHOD(void, showPeerConnected, (common::PhoneNumber),(final));
     MOCK_METHOD(void, showCallDropped, (common::PhoneNumber),(final));
     MOCK_METHOD(void, callTimeout, (),(final));
+    MOCK_METHOD(void, clearCallMessages, (),(final));
     MOCK_METHOD(void, showCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, showPeerUserDisconnected, (), (final));
     MOCK_METHOD(void, showNotAvailable, (common::PhoneNumber), (final));

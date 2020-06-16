@@ -12,6 +12,8 @@ public:
      void handleSendTalkMessage(const std::string) final;
      void handleTalkMessage(const std::string) final;
      void handlePeerUeBecomesUnknown() final;
+     void handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever) final;
+     void handleCallDrop() final;
 
 private:
     common::PhoneNumber from;

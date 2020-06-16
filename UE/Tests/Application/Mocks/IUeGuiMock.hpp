@@ -77,6 +77,7 @@ public:
     MOCK_METHOD(void, appendIncomingText, (const std::string &text), (final));
     MOCK_METHOD(void, clearOutgoingText, (), (final));
     MOCK_METHOD(std::string, getOutgoingText, (), (const, final));
+    MOCK_METHOD(void, clearIncomingText, (), (final));
 };
 
 class IDialModeMock : public IUeGui::IDialMode

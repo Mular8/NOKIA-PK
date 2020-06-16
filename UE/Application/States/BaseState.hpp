@@ -28,11 +28,12 @@ public:
     void handleReceivedCallRequest(common::PhoneNumber recipient) override;
     void handleReceivedCallAccepted(common::PhoneNumber recipient) override;
     void handleReceivedCallDropped(common::PhoneNumber recipient) override;
-    void handleSendCallDrop(common::PhoneNumber) override;
+    void handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever) override;
     void handlePeerNotConnected(common::PhoneNumber) override;
     void handleSendTalkMessage(const std::string) override;
     void handleTalkMessage(const std::string) override;
     void handlePeerUeBecomesUnknown() override;
+    void handleCallDrop() override;
 protected:
     Context& context;
 private:

@@ -19,12 +19,14 @@ public:
     void sendTalkMessage(const std::string, const common::PhoneNumber) override;
     void start(IBtsEventsHandler& handler);
     void stop();
+    void sendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever) override;
 
     void sendAttachRequest(common::BtsId) override;
 
 private:
     void handleMessage(BinaryMessage msg);
     void handleDisconnected();
+    void handleCallDrop();
     common::PrefixedLogger logger;
     common::ITransport& transport;
     common::PhoneNumber phoneNumber;

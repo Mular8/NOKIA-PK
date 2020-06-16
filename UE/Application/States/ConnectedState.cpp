@@ -52,7 +52,7 @@ void ConnectedState::handleTimeout()
     context.user.callTimeout();
 }
 
-void ConnectedState::handleSendCallDrop(common::PhoneNumber from)
+void ConnectedState::handleSendCallDropped(common::PhoneNumber from)
 {
     context.logger.logDebug("Send Call Drop", from);
     context.timer.stopTimer();
@@ -70,17 +70,17 @@ void ConnectedState::handleSendCallAccept(common::PhoneNumber from)
     context.setState<TalkingState>(from);
 }
 
-void ConnectedState::handleSendCallDropped(common::PhoneNumber from)
-{
-    context.user.showConnected();
-    context.bts.sendCallDropped(from);
-}
-
 void ConnectedState::handlePeerUeBecomesUnknown()
 {
     context.timer.stopTimer();
     context.user.showPeerUeBecomesUnknown(this->currentlyDialedPhoneNumber);
     context.setState<ConnectedState>();
+}
+
+void ConnectedState::handleCallDrop(){
+    context.user.clearCallMessages();
+    context.user.showMenu();
+    context.timer.stopTimer();
 }
 
 }

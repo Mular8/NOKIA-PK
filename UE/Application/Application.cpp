@@ -87,9 +87,9 @@ void Application::handleSendCallDropped(common::PhoneNumber from)
 {
     context.state->handleSendCallDropped(from);
 }
-void Application::handleSendCallDrop(common::PhoneNumber from)
+void Application::handleSendCallDrop(common::PhoneNumber sender, common::PhoneNumber reciever)
 {
-    context.state->handleSendCallDrop(from);
+    context.state->handleSendCallDrop(sender, reciever);
 }
 void Application::handlePeerNotConnected(common::PhoneNumber from)
 {
@@ -106,6 +106,10 @@ void Application::handleTalkMessage(const std::string message){
 
 void Application::handlePeerUeBecomesUnknown(){
     context.state->handlePeerUeBecomesUnknown();
+}
+
+void Application::handleCallDrop(){
+    context.state->handleCallDrop();
 }
 
 
